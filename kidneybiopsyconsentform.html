@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Kidney Biopsy Consent - Command Hospital (SC) Pune</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        h1 { font-size: 2.2em; }
+        h2 { font-size: 1.8em; }
+        h3 { font-size: 1.4em; text-align: left; margin-top: 25px; }
+
+        .section-box {
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.07);
+            background-color: #fdfefe;
+        }
+
+        .disclaimer {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+        }
+        .info-section {
+            background-color: #e0f7fa;
+            border: 1px solid #00bcd4;
+            color: #006064;
+        }
+        .video-section {
+            background-color: #f0f8ff;
+            border: 1px solid #a7d9f7;
+        }
+        .question-section {
+            background-color: #e6f7ff;
+            border: 1px solid #99daff;
+            text-align: center;
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 8px;
+        }
+        .final-consent-section {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            text-align: center;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #000; /* To prevent white flash */
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+
+        .button-group {
+            margin-top: 25px;
+        }
+        .button-group button, #startProcessButton, #submitConsentButton {
+            background-color: #28a745; /* Green for positive actions */
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .button-group button.no-btn {
+            background-color: #dc3545; /* Red for negative/re-watch */
+        }
+        #submitConsentButton {
+            background-color: #007bff; /* Blue for final consent */
+        }
+        .button-group button:hover, #startProcessButton:hover, #submitConsentButton:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        .button-group button:active, #startProcessButton:active, #submitConsentButton:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #submitConsentButton:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .hidden {
+            display: none;
+        }
+        #consentCheckboxLabel {
+            display: block;
+            margin: 25px auto;
+            font-size: 1.15em;
+            max-width: 80%;
+            text-align: left;
+            cursor: pointer;
+        }
+        #consentCheckbox {
+            margin-right: 12px;
+            transform: scale(1.3);
+            vertical-align: middle;
+        }
+        #thankYouMessage {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.4em;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .important-note {
+            background-color: #ffe0b2;
+            border: 1px solid #ff9800;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+            font-weight: bold;
+            color: #e65100;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DEPARTMENT OF NEPHROLOGY<br>COMMAND HOSPITAL (SC) PUNE</h1>
+        <h2>Ultrasound-Guided Kidney Biopsy Consent Process</h2>
+
+        <div id="introSection" class="section-box disclaimer">
+            <p><strong>Disclaimer:</strong> This video-assisted consent process is provided by the Department of Nephrology, Command Hospital (SC) Pune, to offer comprehensive information regarding the Ultrasound-Guided Kidney Biopsy procedure. This interactive tool is for informational purposes only and does not replace a direct, in-person consultation with your healthcare provider. You will have a dedicated opportunity to discuss any questions or concerns with your doctor before the biopsy.</p>
+            <p>Always consult with a qualified medical professional for diagnosis, treatment, and medical advice specific to your condition. Your physical signature on the official consent form will be required before the procedure.</p>
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="startProcessButton">Start Consent Process</button>
+            </div>
+        </div>
+
+        <div id="textSection1" class="hidden section-box info-section">
+            <h2>Part 1: Understanding the Ultrasound-Guided Kidney Biopsy</h2>
+            <p>An **Ultrasound-Guided Kidney Biopsy** is a medical procedure where a small sample of kidney tissue is removed for examination under a microscope. This is performed to diagnose kidney diseases, assess damage, or monitor the effectiveness of treatments. The procedure is guided by real-time ultrasound imaging to ensure precise placement of the biopsy needle.</p>
+            <p>During the procedure, you will typically lie on your stomach (or sometimes your side or back). The specific area over your kidney will be numbed using a local anaesthetic. The doctor will use the ultrasound to visualize your kidney and accurately guide a thin biopsy needle to take one or more small tissue samples. You may be asked to hold your breath for a few seconds during needle insertion to minimize kidney movement.</p>
+
+            <div class="question-section" id="questionText1">
+                <p>Do you understand the basic definition and overview of what an Ultrasound-Guided Kidney Biopsy entails?</p>
+                <div class="button-group">
+                    <button class="yes-btn" data-target="video1Section">Yes, I understand</button>
+                    <button class="no-btn" data-action="rewatch-text" data-target="textSection1">No, please let me review</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="video1Section" class="hidden section-box video-section">
+            <h2>Part 2: Visual Explanation of the Biopsy Procedure</h2>
+            <p>This video provides a visual and animated explanation of how the Ultrasound-Guided Kidney Biopsy is performed, demonstrating the use of ultrasound guidance and needle insertion.</p>
+            <div class="video-wrapper">
+                <iframe id="videoPlayer1" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="question-section hidden" id="questionVideo1">
+                <p>After watching the video, do you have a clearer understanding of the steps involved in performing the Ultrasound-Guided Kidney Biopsy?</p>
+                <div class="button-group">
+                    <button class="yes-btn" data-target="textSection2">Yes, I understood</button>
+                    <button class="no-btn" data-action="rewatch-video" data-player="videoPlayer1" data-section="video1Section">No, please let me re-watch</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="textSection2" class="hidden section-box info-section">
+            <h2>Part 3: Risks, Benefits, and Alternatives of the Procedure</h2>
+            <h3>Risks of the Procedure:</h3>
+            <p>There are inherent risks and potential complications associated with any medical procedure, including the Ultrasound-Guided Kidney Biopsy. While utmost care will be taken to prevent these complications, these include but are not limited to the following:</p>
+            <ul>
+                <li>Some pain and discomfort may occur during and for a few days after the procedure.</li>
+                <li>Approximately a 10-15% chance of encountering complications. </li>
+                <li>Arterial puncture. </li>
+                <li>Passage of blood in urine or collection of blood around the kidney can occur. It is likely to stop spontaneously within a few days of the procedure, but there is about a 0.5% chance that it may persist longer and may require blood transfusion, catheter embolization/coiling, or surgery. </li>
+                <li>Bleeding is more common if you have been taking blood thinning drugs such as Warfarin, Aspirin, or Clopidogrel. </li>
+                <li>**Delayed complications** include: 
+                    <ul>
+                        <li>Infection can occur requiring antibiotics and further treatment. </li>
+                        <li>Formation of arteriovenous fistulas (abnormal connection between an artery and a vein). </li>
+                        <li>Paralytic ileus (temporary cessation of bowel movements). </li>
+                        <li>Injury to internal organs in the abdomen and/or chest. </li>
+                    </ul>
+                </li>
+                <li>There is also a minimal risk of death occurring due to this procedure. </li>
+                <li>The procedure may include a blood transfusion.</li>
+            </ul>
+
+            <h3>Risks of Not Having This Procedure:</h3>
+            <p>This biopsy procedure is crucial as it is likely to help the treating doctors in arriving at a precise diagnosis. This diagnosis may also help in planning and deciding the future course and optimal treatment for your ailment. Not undergoing the procedure might delay or prevent an accurate diagnosis, potentially impacting your treatment plan and prognosis.</p>
+
+            <h3>Sedation/Anaesthesia Technique:</h3>
+            <p>The procedure will be performed under **Local Anaesthesia**, which numbs the biopsy site. Additionally, sedation may be administered if deemed necessary to help you relax during the procedure. </p>
+
+            <h3>Other Relevant Options:</h3>
+            <p>Your doctor has explained other relevant procedure or treatment options available for your condition, along with their associated risks, allowing you to make an informed decision.</p>
+
+            <div class="question-section" id="questionText2">
+                <p>Do you understand the specific risks, potential benefits, risks of not having the procedure, and the anesthesia technique involved with the Kidney Biopsy?</p>
+                <div class="button-group">
+                    <button class="yes-btn" data-target="video2Section">Yes, I understand</button>
+                    <button class="no-btn" data-action="rewatch-text" data-target="textSection2">No, please let me review</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="video2Section" class="hidden section-box video-section">
+            <h2>Part 4: Risks, Benefits, and Alternatives (Video)</h2>
+            <p>This video provides a visual and audio explanation of the potential risks, complications, and benefits associated with the Ultrasound-Guided Kidney Biopsy, as well as alternative diagnostic options.</p>
+            <div class="video-wrapper">
+                <iframe id="videoPlayer2" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="question-section hidden" id="questionVideo2">
+                <p>After watching the video, are you clear about the potential complications, benefits, and alternative options discussed?</p>
+                <div class="button-group">
+                    <button class="yes-btn" data-target="textSection3">Yes, I understood</button>
+                    <button class="no-btn" data-action="rewatch-video" data-player="videoPlayer2" data-section="video2Section">No, please let me re-watch</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="textSection3" class="hidden section-box info-section">
+            <h2>Part 5: Preparation, Post-Procedure Care, and Important Information</h2>
+            <h3>What to Expect Before and After the Procedure:</h3>
+            <ul>
+                <li>Post-procedure, there may be a need for you to be detained in the Intensive Care Unit (ICU) for observation and further management.</li>
+                <li>Tissues and blood may be removed during the procedure. These samples could be used for diagnosis or management of your condition, stored, and disposed of sensitively by the hospital. </li>
+            </ul>
+
+            <h3>Important Information Regarding Your Care:</h3>
+            <ul>
+                <li>If immediate life-threatening events occur during the procedure, appropriate resuscitative methods would be instituted based on the laid out protocols of Command Hospital (SC) Pune. </li>
+                <li>A doctor other than the Consultant may conduct the procedure. You understand this could be a doctor undergoing further training, who will be supervised. </li>
+                <li>No guarantee has been made that the procedure will definitively improve your condition, even though it will be carried out with due professional care. </li>
+                <li>Image(s) or video footage may be recorded as part of and during your procedure. These image(s) or video(s) will assist the doctor in providing appropriate treatment. </li>
+                <li>It is understood that the benefits of undergoing this procedure are considered to outweigh the risks, and utmost care will be taken to prevent the above-mentioned complications. </li>
+            </ul>
+
+            <h3>Your Right to Ask Questions:</h3>
+            <p>You have had the opportunity to ask questions and raise concerns with the doctor about your medical condition, the proposed procedure, its risks, and your treatment options. Your questions and concerns have been discussed in the language you understand and have been answered to your satisfaction. </p>
+            <p>You also understand that you have the right to change your mind at any time, including after you have completed this form and signed the physical consent form. It is preferable to discuss this with your doctor if you decide to change your mind. </p>
+
+            <div class="question-section" id="questionText3">
+                <p>Do you understand the preparation and post-procedure care, as well as the other important information and your rights as a patient?</p>
+                <div class="button-group">
+                    <button class="yes-btn" data-target="video3Section">Yes, I understand</button>
+                    <button class="no-btn" data-action="rewatch-text" data-target="textSection3">No, please let me review</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="video3Section" class="hidden section-box video-section">
+            <h2>Part 6: Preparing for and Recovering from Biopsy (Video)</h2>
+            <p>This video provides practical guidance on what to do before the biopsy, what to expect immediately after, and key instructions for your recovery period.</p>
+            <div class="video-wrapper">
+                <iframe id="videoPlayer3" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="question-section hidden" id="questionVideo3">
+                <p>Are you now fully clear about the preparation steps, what happens immediately after the biopsy, and the important care instructions for your recovery?</p>
+                <div class="button-group">
+                    <button class="yes-btn" data-target="finalConsentSection">Yes, I understood</button>
+                    <button class="no-btn" data-action="rewatch-video" data-player="videoPlayer3" data-section="video3Section">No, please let me re-watch</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="finalConsentSection" class="hidden section-box final-consent-section">
+            <h2>Final Consent Statement</h2>
+            <p>You have now completed the comprehensive video-assisted informational process for the Ultrasound-Guided Kidney Biopsy at Command Hospital (SC) Pune. </p>
+            <p>By proceeding, you acknowledge that:</p>
+            <ul>
+                <li>The doctor has explained your medical condition and the proposed procedure (taking tissue from your kidney through a biopsy gun under real-time ultrasound guidance), including additional treatment if something unexpected is found.</li>
+                <li>You understand the risks, including those specific to you. </li>
+                <li>Other relevant procedure/treatment options and their associated risks have been discussed.</li>
+                <li>Your prognosis and the risks of not having the procedure have been explained.</li>
+                <li>No guarantee has been made that the procedure will improve your condition, even though it will be carried out with due professional care. </li>
+                <li>The procedure may include a blood transfusion.</li>
+                <li>Post-procedure, there may be a need for me to be detained in the ICU for observation and further management.</li>
+                <li>Tissues and blood may be removed and could be used for diagnosis or management of your condition, stored and disposed of sensitively by the hospital. </li>
+                <li>If immediate life-threatening events occur during the procedure, appropriate resuscitative methods would be instituted based on laid out protocols of the hospital. </li>
+                <li>A doctor other than the Consultant may conduct the procedure, and you understand this could be a doctor undergoing further training. </li>
+                <li>You were able to ask questions and raise concerns with the doctor about your condition, the proposed procedure and its risks, and your treatment options. Your questions and concerns have been discussed in the language you understand and answered to your satisfaction. </li>
+                <li>You understand you have the right to change your mind at any time, including after you have signed the physical consent form, but preferably following a discussion with your doctor. </li>
+                <li>You understand that image(s) or video footage may be recorded as part of and during my procedure and that these image(s) or video(s) will assist the doctor to provide appropriate treatment. </li>
+                <li>You understand that the benefits of undergoing the procedure outweigh the risks and that utmost care will be taken to prevent the above-mentioned complications. </li>
+            </ul>
+
+            <label id="consentCheckboxLabel">
+                <input type="checkbox" id="consentCheckbox">
+                I acknowledge the above statements and confirm my request to have the Ultrasound-Guided Kidney Biopsy procedure.
+            </label>
+            <button id="submitConsentButton" disabled>I Consent to Biopsy</button>
+            <p id="thankYouMessage" class="hidden">Thank you for completing the informational process. Please inform your healthcare provider of your decision. A physical consent form will be provided for your signature.</p>
+
+            <div class="important-note">
+                **Note:** This digital process is for information and understanding. Your formal consent for the procedure will be recorded on the official physical consent form, which you will sign in the presence of your doctor and a witness.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- REPLACE THESE WITH YOUR ACTUAL GOOGLE DRIVE EMBED LINKS ---
+        const videoEmbedLinks = {
+            videoPlayer1: "https://drive.google.com/file/d/1C0szHa8kLG9N1dQ2DzKwXuNZTybrgmeP/preview", // e.g., "https://drive.google.com/file/d/1aBcDeFgH1iJkLmNoPqRsTuVwXyZ/preview"
+            videoPlayer2: "https://drive.google.com/file/d/1d_r6GIVp0wZjtPsRGSrdQSFrCTkmcqRW/preview",
+            videoPlayer3: "https://drive.google.com/file/d/1RGE7EyubOMDc2LwquheUO07hlb1hfk8c/preview"
+        };
+        // --- END OF VIDEO LINK CONFIGURATION ---
+
+        const startProcessButton = document.getElementById('startProcessButton');
+        const introSection = document.getElementById('introSection');
+        const textSection1 = document.getElementById('textSection1');
+        const questionText1 = document.getElementById('questionText1');
+
+        const video1Section = document.getElementById('video1Section');
+        const videoPlayer1 = document.getElementById('videoPlayer1');
+        const questionVideo1 = document.getElementById('questionVideo1');
+
+        const textSection2 = document.getElementById('textSection2');
+        const questionText2 = document.getElementById('questionText2');
+
+        const video2Section = document.getElementById('video2Section');
+        const videoPlayer2 = document.getElementById('videoPlayer2');
+        const questionVideo2 = document.getElementById('questionVideo2');
+
+        const textSection3 = document.getElementById('textSection3');
+        const questionText3 = document.getElementById('questionText3');
+
+        const video3Section = document.getElementById('video3Section');
+        const videoPlayer3 = document.getElementById('videoPlayer3');
+        const questionVideo3 = document.getElementById('questionVideo3');
+
+        const finalConsentSection = document.getElementById('finalConsentSection');
+        const consentCheckbox = document.getElementById('consentCheckbox');
+        const submitConsentButton = document.getElementById('submitConsentButton');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+
+        // Function to show a section and hide others
+        function showSection(sectionId) {
+            document.querySelectorAll('.container > div').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            // If it's a video section, load the video and set up question timer
+            if (sectionId.startsWith('video') && sectionId !== 'finalConsentSection') {
+                const videoPlayer = document.getElementById('videoPlayer' + sectionId.replace('video', ''));
+                const questionElement = document.getElementById('questionVideo' + sectionId.replace('video', ''));
+
+                if (videoPlayer && questionElement) {
+                    // Load the correct video source
+                    videoPlayer.src = videoEmbedLinks[videoPlayer.id];
+
+                    // For Google Drive iframes, we can't reliably detect 'ended' events.
+                    // So, we'll display the question after a short delay, implying the user
+                    // should have watched the video. For a real system, use a video host API.
+                    questionElement.classList.add('hidden'); // Hide until ready
+                    setTimeout(() => {
+                        questionElement.classList.remove('hidden');
+                    }, 3000); // Wait 3 seconds after video iframe loads to show question
+                }
+            } else if (sectionId.includes('textSection')) {
+                // For text sections, just show the question immediately
+                const questionElement = document.getElementById('question' + sectionId.replace('textSection', 'Text'));
+                 if (questionElement) { // Ensure the correct question ID
+                    questionElement.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Event listener for starting the process
+        startProcessButton.addEventListener('click', () => {
+            showSection('textSection1');
+        });
+
+        // Event listeners for "Yes" buttons
+        document.querySelectorAll('.yes-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const currentQuestionSection = event.target.closest('.question-section');
+                currentQuestionSection.classList.add('hidden'); // Hide current question
+
+                const nextSectionId = event.target.dataset.target;
+                showSection(nextSectionId);
+            });
+        });
+
+        // Event listeners for "No" buttons (Rewatch)
+        document.querySelectorAll('.no-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const action = event.target.dataset.action;
+                const targetSectionId = event.target.dataset.target;
+
+                alert("Please re-read the information or re-watch the video carefully to ensure understanding.");
+
+                if (action === 'rewatch-text') {
+                    // For text, simply re-show the current text section and its question
+                    document.getElementById(targetSectionId).classList.remove('hidden');
+                    // Ensure the question for the text section is visible
+                    document.getElementById('question' + targetSectionId.replace('textSection', 'Text')).classList.remove('hidden');
+
+                } else if (action === 'rewatch-video') {
+                    const videoPlayerId = event.target.dataset.player;
+                    const videoPlayer = document.getElementById(videoPlayerId);
+                    const currentVideoSection = document.getElementById(targetSectionId);
+                    const currentQuestionSection = event.target.closest('.question-section');
+
+                    // Hide current question
+                    currentQuestionSection.classList.add('hidden');
+
+                    // Reload the iframe to restart the video
+                    videoPlayer.src = videoEmbedLinks[videoPlayerId]; // Reloads the iframe, restarting video
+                    currentVideoSection.classList.remove('hidden'); // Ensure video section is visible
+
+                    // Re-enable the question after a delay
+                    setTimeout(() => {
+                        currentQuestionSection.classList.remove('hidden');
+                    }, 3000); // Match the delay for initial video load
+                }
+            });
+        });
+
+        // Enable submit button only when checkbox is checked
+        consentCheckbox.addEventListener('change', () => {
+            submitConsentButton.disabled = !consentCheckbox.checked;
+        });
+
+        // Final Consent Submission
+        submitConsentButton.addEventListener('click', () => {
+            if (consentCheckbox.checked) {
+                // In a real application, you would send this data securely to a backend server.
+                // This would typically involve an AJAX request (fetch API or XMLHttpRequest)
+                // to a server endpoint that logs the consent.
+                const consentData = {
+                    procedure: "Ultrasound-Guided Kidney Biopsy",
+                    consentGiven: true,
+                    timestamp: new Date().toISOString(),
+                    // In a real system, you'd add:
+                    // patientId: "Obtain from secure login or patient management system",
+                    // answers: {
+                    //     text1Understood: true,
+                    //     video1Understood: true,
+                    //     text2Understood: true,
+                    //     video2Understood: true,
+                    //     text3Understood: true,
+                    //     video3Understood: true
+                    // }
+                };
+                console.log("Consent Recorded (Client-side Demo):", consentData); // For demonstration purposes
+
+                // Provide visual feedback
+                submitConsentButton.classList.add('hidden');
+                consentCheckbox.classList.add('hidden');
+                document.getElementById('consentCheckboxLabel').classList.add('hidden');
+                thankYouMessage.classList.remove('hidden');
+
+                // Optionally, disable all buttons to prevent further interaction
+                document.querySelectorAll('button').forEach(btn => btn.disabled = true);
+            }
+        });
+    </script>
+</body>
+</html>
