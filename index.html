@@ -68,7 +68,7 @@
             background-color: #f0f8ff;
             border: 1px solid #a7d9f7;
         }
-        .question-section {
+        .question-section, .quiz-question-container {
             background-color: #e6f7ff;
             border: 1px solid #99daff;
             text-align: center;
@@ -76,6 +76,7 @@
             margin-top: 25px;
             border-radius: 8px;
         }
+        .quiz-question-container { text-align: left; }
         .final-consent-section {
             background-color: #e8f5e9;
             border: 1px solid #c8e6c9;
@@ -83,156 +84,69 @@
         }
         
         .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            background-color: #000; /* Default background */
-            margin-top: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: relative; padding-bottom: 56.25%; height: 0;
+            overflow: hidden; border-radius: 8px; background-color: #000;
+            margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .video-wrapper.hide-yt-ui .ytp-chrome-bottom, .video-wrapper.hide-yt-ui .ytp-endscreen,
+        .video-wrapper.hide-yt-ui .ytp-suggestions, .video-wrapper.hide-yt-ui .ytp-large-play-button,
+        .video-wrapper.hide-yt-ui .ytp-gradient-bottom, .video-wrapper.hide-yt-ui .ytp-gradient-top,
+        .video-wrapper.hide-yt-ui .ytp-contextmenu, .video-wrapper.hide-yt-ui .ytp-progress-bar-container,
+        .video-wrapper.hide-yt-ui .ytp-button, .video-wrapper.hide-yt-ui .ytp-watermark,
+        .video-wrapper.hide-yt-ui .ytp-title-channel-logo, .video-wrapper.hide-yt-ui .ytp-playlist-menu-button,
+        .video-wrapper.hide-yt-ui .ytp-ce-video, .video-wrapper.hide-yt-ui .ytp-ce-channel,
+        .video-wrapper.hide-yt-ui .ytp-ce-element, .video-wrapper.hide-yt-ui .ytp-next-button,
+        .video-wrapper.hide-yt-ui .ytp-hotkey-layer, .video-wrapper.hide-yt-ui .ytp-title-link {
+            display: none !important; visibility: hidden !important; pointer-events: none !important;
         }
-        /* --- CRITICAL CSS for hiding YouTube end screen and UI --- */
-        .video-wrapper.hide-yt-ui .ytp-chrome-bottom,
-        .video-wrapper.hide-yt-ui .ytp-endscreen,
-        .video-wrapper.hide-yt-ui .ytp-suggestions,
-        .video-wrapper.hide-yt-ui .ytp-large-play-button,
-        .video-wrapper.hide-yt-ui .ytp-gradient-bottom,
-        .video-wrapper.hide-yt-ui .ytp-gradient-top,
-        .video-wrapper.hide-yt-ui .ytp-contextmenu,
-        .video-wrapper.hide-yt-ui .ytp-progress-bar-container,
-        .video-wrapper.hide-yt-ui .ytp-button,
-        .video-wrapper.hide-yt-ui .ytp-watermark,
-        .video-wrapper.hide-yt-ui .ytp-title-channel-logo,
-        .video-wrapper.hide-yt-ui .ytp-playlist-menu-button,
-        .video-wrapper.hide-yt-ui .ytp-ce-video, /* Related video thumbnails */
-        .video-wrapper.hide-yt-ui .ytp-ce-channel, /* Channel link */
-        .video-wrapper.hide-yt-ui .ytp-ce-element, /* Generic end screen element */
-        .video-wrapper.hide-yt-ui .ytp-next-button, /* Next video button */
-        .video-wrapper.hide-yt-ui .ytp-hotkey-layer, /* Hotkey overlay */
-        .video-wrapper.hide-yt-ui .ytp-title-link { /* Title link in top bar */
-            display: none !important;
-            visibility: hidden !important; /* Extra strong hiding */
-            pointer-events: none !important; /* Ensure no interaction */
-        }
-        .video-wrapper.hide-yt-ui iframe {
-            visibility: hidden !important;
-        }
-        .video-wrapper.hide-yt-ui {
-            background-color: black !important;
-        }
-        /* --- END CRITICAL CSS --- */
+        .video-wrapper.hide-yt-ui iframe { visibility: hidden !important; }
+        .video-wrapper.hide-yt-ui { background-color: black !important; }
 
-        p {
-            margin-bottom: 15px;
-            font-size: 1.05em;
-        }
-        ul {
-            list-style-type: disc;
-            margin-left: 20px;
-            padding-left: 0;
-            margin-bottom: 15px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
+        p { margin-bottom: 15px; font-size: 1.05em; }
+        ul { list-style-type: disc; margin-left: 20px; padding-left: 0; margin-bottom: 15px; }
+        li { margin-bottom: 8px; }
 
-        .button-group {
-            margin-top: 25px;
-        }
+        .button-group { margin-top: 25px; }
         .button-group button, #startProcessButton, #submitConsentButton, #downloadTranscriptBtn {
-            background-color: #28a745; /* Green for positive actions */
-            color: white;
-            padding: 14px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            margin: 10px;
+            background-color: #28a745; color: white; padding: 14px 30px; border: none;
+            border-radius: 8px; cursor: pointer; font-size: 1.1em; margin: 10px;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .button-group button.no-btn {
-            background-color: #dc3545; /* Red for negative/re-watch */
+        .button-group button.no-btn { background-color: #dc3545; }
+        #submitConsentButton, .quiz-button { background-color: #007bff; }
+        #downloadTranscriptBtn { background-color: #6c757d; }
+        
+        .button-group button:hover, #startProcessButton:hover, #submitConsentButton:hover, #downloadTranscriptBtn:hover, .quiz-button:hover {
+            opacity: 0.95; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
-        #submitConsentButton {
-            background-color: #007bff; /* Blue for final consent */
+        .button-group button:active, #startProcessButton:active, #submitConsentButton:active, #downloadTranscriptBtn:active, .quiz-button:active {
+            transform: translateY(0); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        #downloadTranscriptBtn {
-            background-color: #6c757d; /* Gray for download */
-        }
-        .button-group button:hover, #startProcessButton:hover, #submitConsentButton:hover, #downloadTranscriptBtn:hover {
-            opacity: 0.95;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-        .button-group button:active, #startProcessButton:active, #submitConsentButton:active, #downloadTranscriptBtn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        #submitConsentButton:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        .hidden {
-            display: none;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input[type="text"],
-        .form-group input[type="number"] {
-            width: calc(100% - 22px); /* Adjust for padding and border */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
+        #submitConsentButton:disabled { background-color: #cccccc; cursor: not-allowed; box-shadow: none; }
+        .hidden { display: none; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input[type="text"], .form-group input[type="number"] {
+            width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em;
         }
 
-        #consentCheckboxLabel {
-            display: block;
-            margin: 25px auto;
-            font-size: 1.15em;
-            max-width: 80%;
-            text-align: left;
-            cursor: pointer;
-        }
-        #consentCheckbox {
-            margin-right: 12px;
-            transform: scale(1.3);
-            vertical-align: middle;
-        }
-        #thankYouMessage {
-            color: #28a745;
-            font-weight: bold;
-            font-size: 1.4em;
-            margin-top: 30px;
-            text-align: center;
-        }
-        .important-note {
-            background-color: #ffe0b2;
-            border: 1px solid #ff9800;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 25px;
-            font-weight: bold;
-            color: #e65100;
-        }
+        #consentCheckboxLabel { display: block; margin: 25px auto; font-size: 1.15em; max-width: 80%; text-align: left; cursor: pointer; }
+        #consentCheckbox { margin-right: 12px; transform: scale(1.3); vertical-align: middle; }
+        #thankYouMessage { color: #28a745; font-weight: bold; font-size: 1.4em; margin-top: 30px; text-align: center; }
+        .important-note { background-color: #ffe0b2; border: 1px solid #ff9800; padding: 15px; border-radius: 8px; margin-top: 25px; font-weight: bold; color: #e65100; }
+        
+        .quiz-options ul { list-style-type: none; padding: 0; }
+        .quiz-options li { margin-bottom: 10px; }
+        .quiz-options label { cursor: pointer; display: block; padding: 10px; border-radius: 5px; border: 1px solid #ddd; background: #fff; }
+        .quiz-options input[type="radio"] { margin-right: 10px; }
+        #quizFeedback { margin-top: 20px; padding: 15px; border-radius: 5px; font-weight: bold; }
+        #quizFeedback.correct { background-color: #d4edda; color: #155724; }
+        #quizFeedback.incorrect { background-color: #f8d7da; color: #721c24; }
+        
+        footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; }
     </style>
 </head>
 <body>
@@ -246,9 +160,7 @@
             </select>
         </div>
 
-        <h1 id="mainHeading">
-            <span id="departmentName"></span><br><span id="hospitalName"></span>
-        </h1>
+        <h1 id="mainHeading"><span id="departmentName"></span><br><span id="hospitalName"></span></h1>
         <h2 id="consentProcessTitle"></h2>
 
         <div id="introSection" class="section-box disclaimer">
@@ -276,11 +188,8 @@
         <div id="video1Section" class="hidden section-box video-section">
             <h2 id="video1Title"></h2>
             <p id="video1Intro"></p>
-            <div class="video-wrapper" id="videoWrapper1">
-                <div id="videoPlayer1"></div> 
-            </div>
+            <div class="video-wrapper" id="videoWrapper1"><div id="videoPlayer1"></div></div>
             <p id="videoMessage1" class="hidden" style="text-align: center; margin-top: 15px; font-style: italic; color: #555; font-size: 0.95em;"></p>
-            
             <div class="question-section hidden" id="questionVideo1">
                 <p id="questionVideo1Q"></p>
                 <div class="button-group">
@@ -307,11 +216,8 @@
         <div id="video2Section" class="hidden section-box video-section">
             <h2 id="video2Title"></h2>
             <p id="video2Intro"></p>
-            <div class="video-wrapper" id="videoWrapper2">
-                <div id="videoPlayer2"></div>
-            </div>
+            <div class="video-wrapper" id="videoWrapper2"><div id="videoPlayer2"></div></div>
             <p id="videoMessage2" class="hidden" style="text-align: center; margin-top: 15px; font-style: italic; color: #555; font-size: 0.95em;"></p>
-            
             <div class="question-section hidden" id="questionVideo2">
                 <p id="questionVideo2Q"></p>
                 <div class="button-group">
@@ -338,16 +244,35 @@
         <div id="video3Section" class="hidden section-box video-section">
             <h2 id="video3Title"></h2>
             <p id="video3Intro"></p>
-            <div class="video-wrapper" id="videoWrapper3">
-                <div id="videoPlayer3"></div>
-            </div>
+            <div class="video-wrapper" id="videoWrapper3"><div id="videoPlayer3"></div></div>
             <p id="videoMessage3" class="hidden" style="text-align: center; margin-top: 15px; font-style: italic; color: #555; font-size: 0.95em;"></p>
-
             <div class="question-section hidden" id="questionVideo3">
                 <p id="questionVideo3Q"></p>
                 <div class="button-group">
-                    <button class="yes-btn" data-target="finalConsentSection" id="btn3VideoProceed"></button>
+                    <button class="yes-btn" data-target="quizSection" id="btn3VideoProceed"></button>
                     <button class="no-btn" data-action="rewatch-video" data-player-id="player3" data-section="video3Section" id="btn3WatchAgain"></button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="quizSection" class="hidden section-box info-section">
+            <div id="quizIntro">
+                <h2 id="quizTitle"></h2>
+                <p id="quizIntroText"></p>
+                <div class="button-group">
+                    <button id="startQuizBtn" class="quiz-button"></button>
+                    <button id="skipQuizBtn" class="quiz-button no-btn"></button>
+                </div>
+            </div>
+            <div id="quizContainer" class="hidden">
+                <div id="quizQuestionContainer" class="quiz-question-container">
+                    <h3 id="quizQuestionText"></h3>
+                    <div id="quizOptions" class="quiz-options"></div>
+                </div>
+                <div id="quizFeedback" class="hidden"></div>
+                <div class="button-group">
+                    <button id="submitAnswerBtn" class="quiz-button"></button>
+                    <button id="nextQuestionBtn" class="quiz-button hidden"></button>
                 </div>
             </div>
         </div>
@@ -357,56 +282,35 @@
             <p id="finalConsentP1"></p>
             <p id="finalConsentP2"></p>
             <ul style="text-align: left; max-width: 85%; margin: 20px auto;">
-                <li id="finalConsentItem1"></li>
-                <li id="finalConsentItem2"></li>
-                <li id="finalConsentItem3"></li>
-                <li id="finalConsentItem4"></li>
-                <li id="finalConsentItem5"></li>
-                <li id="finalConsentItem6"></li>
-                <li id="finalConsentItem7"></li>
-                <li id="finalConsentItem8"></li>
-                <li id="finalConsentItem9"></li>
-                <li id="finalConsentItem10"></li>
-                <li id="finalConsentItem11"></li>
-                <li id="finalConsentItem12"></li>
-                <li id="finalConsentItem13"></li>
-                <li id="finalConsentItem14"></li>
+                <li id="finalConsentItem1"></li> <li id="finalConsentItem2"></li>
+                <li id="finalConsentItem3"></li> <li id="finalConsentItem4"></li>
+                <li id="finalConsentItem5"></li> <li id="finalConsentItem6"></li>
+                <li id="finalConsentItem7"></li> <li id="finalConsentItem8"></li>
+                <li id="finalConsentItem9"></li> <li id="finalConsentItem10"></li>
+                <li id="finalConsentItem11"></li> <li id="finalConsentItem12"></li>
+                <li id="finalConsentItem13"></li> <li id="finalConsentItem14"></li>
             </ul>
 
             <h3 id="yourDetailsHeading"></h3>
-            <div class="form-group">
-                <label for="patientName" id="nameLabel"></label>
-                <input type="text" id="patientName" required>
-            </div>
-            <div class="form-group">
-                <label for="patientAge" id="ageLabel"></label>
-                <input type="number" id="patientAge" required>
-            </div>
-            <div class="form-group">
-                <label for="hospitalId" id="hospitalIdLabel"></label>
-                <input type="text" id="hospitalId" required>
-            </div>
+            <div class="form-group"><label for="patientName" id="nameLabel"></label><input type="text" id="patientName" required></div>
+            <div class="form-group"><label for="patientAge" id="ageLabel"></label><input type="number" id="patientAge" required></div>
+            <div class="form-group"><label for="hospitalId" id="hospitalIdLabel"></label><input type="text" id="hospitalId" required></div>
 
             <button id="downloadTranscriptBtn"></button>
-
-            <label id="consentCheckboxLabel">
-                <input type="checkbox" id="consentCheckbox">
-                <span id="consentCheckboxText"></span>
-            </label>
+            <label id="consentCheckboxLabel"><input type="checkbox" id="consentCheckbox"><span id="consentCheckboxText"></span></label>
             <button id="submitConsentButton" disabled></button>
             <p id="thankYouMessage" class="hidden"></p>
-
-            <div class="important-note">
-                <strong id="noteStrong"></strong>
-                <span id="noteText"></span>
-            </div>
+            <div class="important-note"><strong id="noteStrong"></strong> <span id="noteText"></span></div>
         </div>
+
+        <footer>
+            <p>Scientific Reference: Clinical Journal of the American Society of Nephrology 20(6):p 835-843, June 2025. | DOI: 10.2215/CJN.0000000702</p>
+        </footer>
     </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        // --- LANGUAGE LOCALIZATION CONTENT ---
         const localizedContent = {
             en: {
                 pageTitle: "Detailed Kidney Biopsy Consent - Command Hospital (SC) Pune",
@@ -444,7 +348,7 @@
                 questionText3Q: "Do you understand the post-biopsy instructions, warning signs, and the potential risks involved with the Kidney Biopsy?",
                 video3Title: "Video 3: Post-Biopsy Instructions and Risks",
                 video3Intro: "This video will explain post-biopsy instructions, warning signs, and the risks of undergoing a kidney biopsy.",
-                questionVideo3Q: "Have you understood the post-biopsy care and risks? If yes, proceed to the final consent. If not, watch the video again.",
+                questionVideo3Q: "Have you understood the post-biopsy care and risks? If yes, proceed to the next section. If not, watch the video again.",
                 finalConsentStatementTitle: "Final Consent Statement",
                 finalConsentP1: "You have now completed the comprehensive video-assisted informational process for the Ultrasound-Guided Kidney Biopsy at Command Hospital (SC) Pune.",
                 finalConsentP2: "By proceeding, you acknowledge that the doctor has explained:",
@@ -473,7 +377,34 @@
                 noteStrong: "Note:",
                 noteText: "This digital process is for information and understanding. Your formal consent for the procedure will be recorded on the official physical consent form, which you will sign in the presence of your doctor and a witness.",
                 fillAllFieldsAlert: "Please fill in all details and tick the consent checkbox to proceed.",
-                reviewButtonAlert: "Please review the information carefully to ensure full understanding."
+                reviewButtonAlert: "Please review the information carefully to ensure full understanding.",
+                quizTitle: "Test Your Understanding",
+                quizIntroText: "This optional quiz will help you test your understanding of the kidney biopsy procedure. You can also skip this and proceed directly to the final consent.",
+                startQuizButton: "Start Quiz",
+                skipQuizButton: "Skip to Final Consent",
+                submitAnswerButton: "Submit Answer",
+                nextQuestionButton: "Next Question",
+                finishQuizButton: "Proceed to Final Consent",
+                quizCorrectFeedback: "Correct!",
+                quizIncorrectFeedback: "Incorrect. The correct answer is:",
+                quizQ1: "1. A reason for having a kidney biopsy is:",
+                quizQ1Options: { a: "To treat the cause of your kidney disease", b: "To find the cause of your kidney problem", c: "To take pictures or images of your kidney before treatment is started", d: "To determine the size of your kidney" },
+                quizQ2: "2. Before having your kidney biopsy, you should:",
+                quizQ2Options: { a: "Not have any food or drinks for 6 hours", b: "Not have any foods or drinks from the night before", c: "Not empty your bladder/pass urine for 3 hours", d: "Empty your bladder/pass urine before your kidney biopsy" },
+                quizQ3: "3. During the kidney biopsy, you will:",
+                quizQ3Options: { a: "Stand up for the procedure to ensure best access to the kidney", b: "Have an imaging test called an x-ray taken to make sure the needle is in the right position", c: "Have an injection of local anaesthetic to numb the area while lying on your belly", d: "Have a stitch inserted to close the biopsy wound" },
+                quizQ4: "4. The kidney biopsy usually takes:",
+                quizQ4Options: { a: "About 10-15 minutes", b: "Around 30 minutes", c: "Around 1 hour", d: "Around 2 hours" },
+                quizQ5: "5. After the kidney biopsy you will:",
+                quizQ5Options: { a: "Experience a lot of pain", b: "Need to take steroid medications", c: "Not be able to pass urine", d: "Have to stay overnight in hospital" },
+                quizQ6: "6. You should consult your doctor or go to an emergency department if you:",
+                quizQ6Options: { a: "Need to take (paracetamol) to control your pain", b: "Remove your dressing accidentally", c: "See a small amount of blood on the dressing after taking it off", d: "Develop blood in your urine" },
+                quizQ7: "7. The benefits of undergoing a kidney biopsy include:",
+                quizQ7Options: { a: "Obtaining more information about the cause or extent of your kidney disease", b: "Obtaining kidney tissue that may be used for a kidney transplant in the future", c: "Treating the cause of your kidney problem", d: "To identify whether you have any kidney cysts or a horseshoe kidney" },
+                quizQ8: "8. The most common complication associated with a kidney biopsy is:",
+                quizQ8Options: { a: "Minor bleeding, which usually goes away on its own within a few days", b: "An infection which may require antibiotics", c: "Blockage of the kidney, which might mean you are not able to pass urine", d: "Low blood pressure, which is usually temporary but may be permanent" },
+                quizQ9: "9. Patients at increased risk of complications from a kidney biopsy include:",
+                quizQ9Options: { a: "Patients who take blood thinning medications", b: "Patients who have diabetes", c: "Patients who smoke", d: "All of the above", e: "I don’t know" }
             },
             hi: {
                 pageTitle: "विस्तृत किडनी बायोप्सी सहमति - कमांड अस्पताल (एससी) पुणे",
@@ -511,7 +442,7 @@
                 questionText3Q: "क्या आप बायोप्सी के बाद के निर्देशों, चेतावनी संकेतों और किडनी बायोप्सी से जुड़े संभावित जोखिमों को समझते हैं?",
                 video3Title: "वीडियो ३: बायोप्सी के बाद के निर्देश और जोखिम",
                 video3Intro: "यह वीडियो बायोप्सी के बाद के निर्देशों, चेतावनी संकेतों और किडनी बायोप्सी से गुजरने के जोखिमों के बारे में बताएगा।",
-                questionVideo3Q: "क्या आपने बायोप्सी के बाद की देखभाल और जोखिमों को समझ लिया है? यदि हाँ, तो अंतिम सहमति के लिए आगे बढ़ें। यदि नहीं, तो वीडियो को फिर से देखें।",
+                questionVideo3Q: "क्या आपने बायोप्सी के बाद की देखभाल और जोखिमों को समझ लिया है? यदि हाँ, तो अगले भाग पर जाएँ। यदि नहीं, तो वीडियो को फिर से देखें।",
                 finalConsentStatementTitle: "अंतिम सहमति वक्तव्य",
                 finalConsentP1: "आपने अब कमांड अस्पताल (एससी) पुणे में अल्ट्रासाउंड-निर्देशित किडनी बायोप्सी के लिए व्यापक वीडियो-सहायता प्राप्त सूचनात्मक प्रक्रिया पूरी कर ली है।",
                 finalConsentP2: "आगे बढ़कर, आप यह स्वीकार करते हैं कि डॉक्टर ने समझाया है:",
@@ -540,7 +471,34 @@
                 noteStrong: "ध्यान दें:",
                 noteText: "यह डिजिटल प्रक्रिया सूचना और समझ के लिए है। प्रक्रिया के लिए आपकी औपचारिक सहमति आधिकारिक भौतिक सहमति फॉर्म पर दर्ज की जाएगी, जिस पर आप अपने डॉक्टर और एक गवाह की उपस्थिति में हस्ताक्षर करेंगे।",
                 fillAllFieldsAlert: "कृपया आगे बढ़ने के लिए सभी विवरण भरें और सहमति चेकबॉक्स पर टिक करें।",
-                reviewButtonAlert: "पूरी तरह से समझने के लिए कृपया जानकारी की सावधानीपूर्वक समीक्षा करें।"
+                reviewButtonAlert: "पूरी तरह से समझने के लिए कृपया जानकारी की सावधानीपूर्वक समीक्षा करें।",
+                quizTitle: "अपनी समझ का परीक्षण करें",
+                quizIntroText: "यह वैकल्पिक प्रश्नोत्तरी आपको किडनी बायोप्सी प्रक्रिया के बारे में अपनी समझ का परीक्षण करने में मदद करेगी। आप इसे छोड़ भी सकते हैं और सीधे अंतिम सहमति पर आगे बढ़ सकते हैं।",
+                startQuizButton: "प्रश्नोत्तरी शुरू करें",
+                skipQuizButton: "अंतिम सहमति पर जाएं",
+                submitAnswerButton: "उत्तर सबमिट करें",
+                nextQuestionButton: "अगला प्रश्न",
+                finishQuizButton: "अंतिम सहमति पर जाएं",
+                quizCorrectFeedback: "सही!",
+                quizIncorrectFeedback: "गलत। सही उत्तर है:",
+                quizQ1: "1. किडनी बायोप्सी कराने का एक कारण है:",
+                quizQ1Options: { a: "आपकी किडनी की बीमारी के कारण का इलाज करने के लिए", b: "आपकी किडनी की समस्या का कारण जानने के लिए", c: "उपचार शुरू होने से पहले आपकी किडनी की तस्वीरें या छवियां लेने के लिए", d: "आपकी किडनी का आकार निर्धारित करने के लिए" },
+                quizQ2: "2. किडनी बायोप्सी कराने से पहले, आपको चाहिए:",
+                quizQ2Options: { a: "6 घंटे तक कोई भोजन या पेय न लें", b: "पिछली रात से कोई भोजन या पेय न लें", c: "3 घंटे तक अपना मूत्राशय खाली न करें/मूत्र त्याग न करें", d: "किडनी बायोप्सी से पहले अपना मूत्राशय खाली करें/मूत्र त्याग करें" },
+                quizQ3: "3. किडनी बायोप्सी के दौरान, आप:",
+                quizQ3Options: { a: "किडनी तक सबसे अच्छी पहुंच सुनिश्चित करने के लिए प्रक्रिया के लिए खड़े होंगे", b: "यह सुनिश्चित करने के लिए कि सुई सही स्थिति में है, एक्स-रे नामक एक इमेजिंग परीक्षण करवाएंगे", c: "अपने पेट के बल लेटते समय क्षेत्र को सुन्न करने के लिए स्थानीय संवेदनाहारी का इंजेक्शन लगवाएंगे", d: "बायोप्सी के घाव को बंद करने के लिए एक टांका लगवाया जाएगा" },
+                quizQ4: "4. किडनी बायोप्सी में आमतौर पर लगते हैं:",
+                quizQ4Options: { a: "लगभग 10-15 मिनट", b: "लगभग 30 मिनट", c: "लगभग 1 घंटा", d: "लगभग 2 घंटे" },
+                quizQ5: "5. किडनी बायोप्सी के बाद आप:",
+                quizQ5Options: { a: "बहुत दर्द का अनुभव करेंगे", b: "स्टेरॉयड दवाएं लेने की आवश्यकता होगी", c: "मूत्र त्याग नहीं कर पाएंगे", d: "अस्पताल में रात भर रहना होगा" },
+                quizQ6: "6. यदि आप:",
+                quizQ6Options: { a: "अपने दर्द को नियंत्रित करने के लिए (पैरासिटामोल) लेने की आवश्यकता है", b: "गलती से अपनी ड्रेसिंग हटा दें", c: "ड्रेसिंग उतारने के बाद उस पर थोड़ी मात्रा में खून देखें", d: "आपके मूत्र में खून आने लगे" },
+                quizQ7: "7. किडनी बायोप्सी से गुजरने के लाभों में शामिल हैं:",
+                quizQ7Options: { a: "आपकी किडनी की बीमारी के कारण या सीमा के बारे में अधिक जानकारी प्राप्त करना", b: "किडनी ऊतक प्राप्त करना जिसका उपयोग भविष्य में किडनी प्रत्यारोपण के लिए किया जा सकता है", c: "आपकी किडनी की समस्या के कारण का इलाज करना", d: "यह पहचानने के लिए कि क्या आपको कोई किडनी सिस्ट या हॉर्सशू किडनी है" },
+                quizQ8: "8. किडनी बायोप्सी से जुड़ी सबसे आम जटिलता है:",
+                quizQ8Options: { a: "मामूली रक्तस्राव, जो आमतौर पर कुछ दिनों के भीतर अपने आप ठीक हो जाता है", b: "एक संक्रमण जिसके लिए एंटीबायोटिक दवाओं की आवश्यकता हो सकती है", c: "किडनी में रुकावट, जिसका मतलब हो सकता है कि आप मूत्र त्याग नहीं कर पा रहे हैं", d: "निम्न रक्तचाप, जो आमतौर पर अस्थायी होता है लेकिन स्थायी हो सकता है" },
+                quizQ9: "9. किडनी बायोप्सी से जटिलताओं के बढ़ते जोखिम वाले रोगियों में शामिल हैं:",
+                quizQ9Options: { a: "रक्त को पतला करने वाली दवाएं लेने वाले रोगी", b: "मधुमेह वाले रोगी", c: "धूम्रपान करने वाले रोगी", d: "उपरोक्त सभी", e: "मुझे नहीं पता" }
             },
             mr: {
                 pageTitle: "तपशीलवार किडनी बायोप्सी संमती - कमांड हॉस्पिटल (SC) पुणे",
@@ -578,7 +536,7 @@
                 questionText3Q: "तुम्हाला बायोप्सीनंतरच्या सूचना, धोक्याची चिन्हे आणि किडनी बायोप्सीमध्ये समाविष्ट असलेले संभाव्य धोके समजले आहेत का?",
                 video3Title: "व्हिडिओ ३: बायोप्सीनंतरच्या सूचना आणि धोके",
                 video3Intro: "हा व्हिडिओ बायोप्सीनंतरच्या सूचना, धोक्याची चिन्हे आणि किडनी बायोप्सी करण्याच्या धोक्यांबद्दल स्पष्टीकरण देईल.",
-                questionVideo3Q: "तुम्हाला बायोप्सीनंतरची काळजी आणि धोके समजले आहेत का? होय असल्यास, अंतिम संमतीसाठी पुढे जा. नसल्यास, व्हिडिओ पुन्हा पहा.",
+                questionVideo3Q: "तुम्हाला बायोप्सीनंतरची काळजी आणि धोके समजले आहेत का? होय असल्यास, पुढील विभागाकडे जा. नसल्यास, व्हिडिओ पुन्हा पहा.",
                 finalConsentStatementTitle: "अंतिम संमती विधान",
                 finalConsentP1: "तुम्ही आता कमांड हॉस्पिटल (SC) पुणे येथे अल्ट्रासाऊंड-निर्देशित किडनी बायोप्सीसाठी सर्वसमावेशक व्हिडिओ-सहाय्यित माहिती प्रक्रिया पूर्ण केली आहे.",
                 finalConsentP2: "पुढे जाऊन, तुम्ही कबूल करता की डॉक्टरांनी स्पष्ट केले आहे:",
@@ -607,40 +565,66 @@
                 noteStrong: "टीप:",
                 noteText: "ही डिजिटल प्रक्रिया माहिती आणि समज यासाठी आहे. प्रक्रियेसाठी तुमची औपचारिक संमती अधिकृत प्रत्यक्ष संमती फॉर्मवर नोंदवली जाईल, ज्यावर तुम्ही तुमच्या डॉक्टरांच्या आणि साक्षीदाराच्या उपस्थितीत सही कराल.",
                 fillAllFieldsAlert: "कृपया पुढे जाण्यासाठी सर्व तपशील भरा आणि संमती चेकबॉक्सवर टिक करा.",
-                reviewButtonAlert: "पूर्णपणे समजून घेण्यासाठी कृपया माहितीचे काळजीपूर्वक पुनरावलोकन करा."
+                reviewButtonAlert: "पूर्णपणे समजून घेण्यासाठी कृपया माहितीचे काळजीपूर्वक पुनरावलोकन करा.",
+                quizTitle: "तुमची समज तपासा",
+                quizIntroText: "ही पर्यायी प्रश्नमंजुषा तुम्हाला किडनी बायोप्सी प्रक्रियेबद्दलची तुमची समज तपासण्यात मदत करेल. तुम्ही हे वगळून थेट अंतिम संमतीकडे जाऊ शकता.",
+                startQuizButton: "प्रश्नमंजुषा सुरू करा",
+                skipQuizButton: "अंतिम संमतीकडे जा",
+                submitAnswerButton: "उत्तर सबमिट करा",
+                nextQuestionButton: "पुढील प्रश्न",
+                finishQuizButton: "अंतिम संमतीकडे जा",
+                quizCorrectFeedback: "बरोबर!",
+                quizIncorrectFeedback: "चूक. बरोबर उत्तर आहे:",
+                quizQ1: "1. किडनी बायोप्सी करण्याचे एक कारण आहे:",
+                quizQ1Options: { a: "तुमच्या किडनीच्या आजारावर उपचार करण्यासाठी", b: "तुमच्या किडनीच्या समस्येचे कारण शोधण्यासाठी", c: "उपचार सुरू करण्यापूर्वी तुमच्या किडनीचे फोटो किंवा प्रतिमा घेण्यासाठी", d: "तुमच्या किडनीचा आकार ठरवण्यासाठी" },
+                quizQ2: "2. किडनी बायोप्सी करण्यापूर्वी, तुम्ही:",
+                quizQ2Options: { a: "6 तास कोणतेही अन्न किंवा पेय घेऊ नये", b: " आदल्या रात्रीपासून कोणतेही अन्न किंवा पेय घेऊ नये", c: "3 तास तुमचे मूत्राशय रिकामे करू नये/लघवी करू नये", d: "किडनी बायोप्सीपूर्वी तुमचे मूत्राशय रिकामे करा/लघवी करा" },
+                quizQ3: "3. किडनी बायोप्सी दरम्यान, तुम्ही:",
+                quizQ3Options: { a: "किडनीपर्यंत सर्वोत्तम पोहोच सुनिश्चित करण्यासाठी प्रक्रियेसाठी उभे राहाल", b: "सुई योग्य स्थितीत असल्याची खात्री करण्यासाठी एक्स-रे नावाची इमेजिंग चाचणी कराल", c: "पोटावर झोपलेले असताना जागा बधिर करण्यासाठी स्थानिक भूल देणारे इंजेक्शन घ्याल", d: "बायोप्सीची जखम बंद करण्यासाठी टाके घालाल" },
+                quizQ4: "4. किडनी बायोप्सीला सहसा लागतात:",
+                quizQ4Options: { a: "सुमारे 10-15 मिनिटे", b: "सुमारे 30 मिनिटे", c: "सुमारे 1 तास", d: "सुमारे 2 तास" },
+                quizQ5: "5. किडनी बायोप्सीनंतर तुम्ही:",
+                quizQ5Options: { a: "खूप वेदना अनुभवणार", b: "स्टेरॉईड औषधे घेण्याची गरज भासणार", c: "लघवी करू शकणार नाही", d: "रुग्णालयात रात्रभर राहावे लागेल" },
+                quizQ6: "6. तुम्ही तुमच्या डॉक्टरांचा सल्ला घ्यावा किंवा आपत्कालीन विभागात जावे जर तुम्ही:",
+                quizQ6Options: { a: "तुमच्या वेदनांवर नियंत्रण ठेवण्यासाठी (पॅरासिटामॉल) घेण्याची गरज असेल", b: "तुमची ड्रेसिंग चुकून काढली", c: "ड्रेसिंग काढल्यानंतर त्यावर थोडे रक्त दिसले", d: "तुमच्या लघवीत रक्त विकसित झाले" },
+                quizQ7: "7. किडनी बायोप्सी करण्याचे फायदे यात समाविष्ट आहेत:",
+                quizQ7Options: { a: "तुमच्या किडनीच्या आजाराच्या कारणाबद्दल किंवा व्याप्तीबद्दल अधिक माहिती मिळवणे", b: "किडनी ऊतक मिळवणे जे भविष्यात किडनी प्रत्यारोपणासाठी वापरले जाऊ शकते", c: "तुमच्या किडनीच्या समस्येच्या कारणावर उपचार करणे", d: "तुम्हाला किडनी सिस्ट किंवा हॉर्सशू किडनी आहे की नाही हे ओळखण्यासाठी" },
+                quizQ8: "8. किडनी बायोप्सीशी संबंधित सर्वात सामान्य गुंतागुंत आहे:",
+                quizQ8Options: { a: "किरकोळ रक्तस्त्राव, जो सहसा काही दिवसांत स्वतःच जातो", b: "एक संसर्ग ज्यासाठी प्रतिजैविकांची आवश्यकता असू शकते", c: "किडनीमध्ये अडथळा, ज्याचा अर्थ असा होऊ शकतो की तुम्ही लघवी करू शकत नाही", d: "कमी रक्तदाब, जो सहसा तात्पुरता असतो परंतु कायमस्वरूपी असू शकतो" },
+                quizQ9: "9. किडनी बायोप्सीमुळे गुंतागुंत होण्याचा धोका वाढलेल्या रुग्णांमध्ये यांचा समावेश आहे:",
+                quizQ9Options: { a: "रक्त पातळ करणारी औषधे घेणारे रुग्ण", b: "मधुमेह असलेले रुग्ण", c: "धूम्रपान करणारे रुग्ण", d: "वरील सर्व", e: "मला माहित नाही" }
             }
         };
-
-        // --- YOUTUBE VIDEO IDs ---
-        const videoIds = {
-            videoPlayer1: "c42_3CXhoSE",
-            videoPlayer2: "XguK849GQuk",
-            videoPlayer3: "bpA3PeIjQ2Q"
-        };
-
-        // ★★★ UPDATED: Multilingual Video Transcripts ★★★
+        const videoIds = { videoPlayer1: "c42_3CXhoSE", videoPlayer2: "XguK849GQuk", videoPlayer3: "bpA3PeIjQ2Q" };
         const videoTranscripts = {
             videoPlayer1: {
-                en: "hello dear patient this video animation will help you understand about kidney biopsy.  kidney biopsy is generally required to find the exact cause of your kidney problem it also tells us about, extent of kidney problem and likely outcomes in future it helps your doctor to decide the best treatment and medications according to the kidney.  biopsy findings also tells your doctor that whether your kidney disease has improved or worsened, how your present treatment is working.  the preparation prior to kidney biopsy is very simple you will have to undergo simple blood tests that tells about your platelets and INR you can have a light breakfast, please tell your doctor in case you are taking blood thinners like ecosprin or warfarin and acitrome. ",
-                hi: "नमस्ते प्रिय रोगी, यह वीडियो एनीमेशन आपको किडनी बायोप्सी के बारे में समझने में मदद करेगा।  आपकी किडनी की समस्या का सटीक कारण जानने के लिए आमतौर पर किडनी बायोप्सी की आवश्यकता होती है। यह हमें किडनी की समस्या की गंभीरता और भविष्य में संभावित परिणामों के बारे में भी बताता है। यह आपके डॉक्टर को किडनी बायोप्सी के निष्कर्षों के अनुसार सर्वोत्तम उपचार और दवाएं तय करने में मदद करता है।  यह आपके डॉक्टर को यह भी बताता है कि आपकी किडनी की बीमारी में सुधार हुआ है या यह खराब हो गई है, और आपका वर्तमान उपचार कैसे काम कर रहा है।  किडनी बायोप्सी से पहले की तैयारी बहुत सरल है। आपको साधारण रक्त परीक्षण करवाने होंगे जो आपके प्लेटलेट्स और आईएनआर (INR) के बारे में बताते हैं। आप हल्का नाश्ता कर सकते हैं, कृपया अपने डॉक्टर को बताएं यदि आप इकोस्प्रिन या वार्फरिन और एसिट्रोम जैसी खून पतला करने वाली दवाएं ले रहे हैं। ",
-                mr: "नमस्कार प्रिय रुग्ण, हे व्हिडिओ ॲनिमेशन तुम्हाला किडनी बायोप्सीबद्दल समजण्यास मदत करेल.  तुमच्या किडनीच्या समस्येचे नेमके कारण शोधण्यासाठी साधारणपणे किडनी बायोप्सीची आवश्यकता असते. हे आम्हाला किडनीच्या समस्येची व्याप्ती आणि भविष्यातील संभाव्य परिणामांबद्दल देखील सांगते. हे तुमच्या डॉक्टरांना किडनी बायोप्सीच्या निष्कर्षांनुसार सर्वोत्तम उपचार आणि औषधे ठरविण्यात मदत करते.  हे तुमच्या डॉक्टरांना हे देखील सांगते की तुमचा किडनीचा आजार सुधारला आहे की नाही, आणि तुमचे सध्याचे उपचार कसे काम करत आहेत.  किडनी बायोप्सीपूर्वीची तयारी खूप सोपी आहे. तुम्हाला साध्या रक्त तपासण्या कराव्या लागतील ज्या तुमच्या प्लेटलेट्स आणि आयएनआर (INR) बद्दल माहिती देतात. तुम्ही हलका नाश्ता करू शकता, कृपया तुमच्या डॉक्टरांना सांगा जर तुम्ही इकोस्प्रिन किंवा वॉरफेरिन आणि ॲसिट्रोमसारखी रक्त पातळ करणारी औषधे घेत असाल. "
+                en: "hello dear patient this video animation will help you understand about kidney biopsy. kidney biopsy is generally required to find the exact cause of your kidney problem it also tells us about, extent of kidney problem and likely outcomes in future it helps your doctor to decide the best treatment and medications according to the kidney. biopsy findings also tells your doctor that whether your kidney disease has improved or worsened, how your present treatment is working. the preparation prior to kidney biopsy is very simple you will have to undergo simple blood tests that tells about your platelets and INR you can have a light breakfast, please tell your doctor in case you are taking blood thinners like ecosprin or warfarin and acitrome.",
+                hi: "नमस्ते प्रिय रोगी, यह वीडियो एनीमेशन आपको किडनी बायोप्सी के बारे में समझने में मदद करेगा। आपकी किडनी की समस्या का सटीक कारण जानने के लिए आमतौर पर किडनी बायोप्सी की आवश्यकता होती है। यह हमें किडनी की समस्या की गंभीरता और भविष्य में संभावित परिणामों के बारे में भी बताता है। यह आपके डॉक्टर को किडनी बायोप्सी के निष्कर्षों के अनुसार सर्वोत्तम उपचार और दवाएं तय करने में मदद करता है। यह आपके डॉक्टर को यह भी बताता है कि आपकी किडनी की बीमारी में सुधार हुआ है या यह खराब हो गई है, और आपका वर्तमान उपचार कैसे काम कर रहा है। किडनी बायोप्सी से पहले की तैयारी बहुत सरल है। आपको साधारण रक्त परीक्षण करवाने होंगे जो आपके प्लेटलेट्स और आईएनआर (INR) के बारे में बताते हैं। आप हल्का नाश्ता कर सकते हैं, कृपया अपने डॉक्टर को बताएं यदि आप इकोस्प्रिन या वार्फरिन और एसिट्रोम जैसी खून पतला करने वाली दवाएं ले रहे हैं।",
+                mr: "नमस्कार प्रिय रुग्ण, हे व्हिडिओ ॲनिमेशन तुम्हाला किडनी बायोप्सीबद्दल समजण्यास मदत करेल. तुमच्या किडनीच्या समस्येचे नेमके कारण शोधण्यासाठी साधारणपणे किडनी बायोप्सीची आवश्यकता असते. हे आम्हाला किडनीच्या समस्येची व्याप्ती आणि भविष्यातील संभाव्य परिणामांबद्दल देखील सांगते. हे तुमच्या डॉक्टरांना किडनी बायोप्सीच्या निष्कर्षांनुसार सर्वोत्तम उपचार आणि औषधे ठरविण्यात मदत करते. हे तुमच्या डॉक्टरांना हे देखील सांगते की तुमचा किडनीचा आजार सुधारला आहे की नाही, आणि तुमचे सध्याचे उपचार कसे काम करत आहेत. किडनी बायोप्सीपूर्वीची तयारी खूप सोपी आहे. तुम्हाला साध्या रक्त तपासण्या कराव्या लागतील ज्या तुमच्या प्लेटलेट्स आणि आयएनआर (INR) बद्दल माहिती देतात. तुम्ही हलका नाश्ता करू शकता, कृपया तुमच्या डॉक्टरांना सांगा जर तुम्ही इकोस्प्रिन किंवा वॉरफेरिन आणि ॲसिट्रोमसारखी रक्त पातळ करणारी औषधे घेत असाल."
             },
             videoPlayer2: {
-                en: "don't worry the procedure is simple and safe you lie flat on your stomach since kidneys are closer from behind an area on your back is chosen by help of ultrasound and marked local anesthesia is given so that you don't feel any pain a small needle is used to collect a sample tissue from lower portion of your kidney doctor will ask you to hold your breath for a while.  hey don't worry that tiny bit of tissue will not affect your kidney functioning at all a small dressing will be applied biopsy site.  nurse will put light pressure for few minutes to avoid any bleeding afterwards you can carefully turn and lie on your back you will have to take bed rest and stay overnight in hospital for observation once you have passed clear urine after procedure there is nothing to worry your vitals will be monitored at regular intervals if you feel all right you will be discharged from hospital next day morning .  it is advisable to be accompanied back home ",
-                hi: "चिंता न करें, यह प्रक्रिया सरल और सुरक्षित है। आप पेट के बल सीधे लेट जाएं क्योंकि किडनी पीछे से अधिक करीब होती हैं। आपकी पीठ पर एक क्षेत्र अल्ट्रासाउंड की मदद से चुना जाता है और चिह्नित किया जाता है। स्थानीय एनेस्थीसिया दिया जाता है ताकि आपको कोई दर्द महसूस न हो। आपकी किडनी के निचले हिस्से से ऊतक का एक नमूना लेने के लिए एक छोटी सुई का उपयोग किया जाता है। डॉक्टर आपको कुछ देर के लिए अपनी सांस रोकने के लिए कहेंगे।  अरे, चिंता न करें, ऊतक का वह छोटा सा टुकड़ा आपकी किडनी की कार्यप्रणाली को बिल्कुल भी प्रभावित नहीं करेगा। बायोप्सी वाली जगह पर एक छोटी ड्रेसिंग लगाई जाएगी।  नर्स कुछ मिनटों के लिए हल्का दबाव डालेगी ताकि कोई रक्तस्राव न हो। बाद में, आप सावधानी से मुड़कर अपनी पीठ के बल लेट सकते हैं। आपको बिस्तर पर आराम करना होगा और अवलोकन के लिए रात भर अस्पताल में रहना होगा। एक बार जब आप प्रक्रिया के बाद साफ मूत्र त्याग कर देते हैं, तो चिंता की कोई बात नहीं है। आपके वाइटल्स नियमित अंतराल पर मॉनिटर किए जाएंगे। यदि आप ठीक महसूस करते हैं, तो आपको अगले दिन सुबह अस्पताल से छुट्टी दे दी जाएगी।  घर वापस जाते समय किसी के साथ रहने की सलाह दी जाती है। ",
-                mr: "काळजी करू नका, ही प्रक्रिया सोपी आणि सुरक्षित आहे. तुम्ही पोटावर सपाट झोपा कारण किडनी मागून जवळ असतात. तुमच्या पाठीवरील एक जागा अल्ट्रासाऊंडच्या मदतीने निवडली जाते आणि चिन्हांकित केली जाते. स्थानिक भूल दिली जाते जेणेकरून तुम्हाला वेदना जाणवणार नाहीत. तुमच्या किडनीच्या खालच्या भागातून ऊतीचा नमुना घेण्यासाठी एका लहान सुईचा वापर केला जातो. डॉक्टर तुम्हाला थोडावेळ श्वास रोखून धरायला सांगतील.  अहो, काळजी करू नका, तो लहान ऊतीचा तुकडा तुमच्या किडनीच्या कार्यावर अजिबात परिणाम करणार नाही. बायोप्सीच्या जागेवर एक लहान ड्रेसिंग लावली जाईल.  नर्स काही मिनिटांसाठी हलका दाब देईल जेणेकरून कोणताही रक्तस्राव होणार नाही. नंतर, तुम्ही काळजीपूर्वक वळून तुमच्या पाठीवर झोपू शकता. तुम्हाला बेड रेस्ट घ्यावी लागेल आणि निरीक्षणासाठी रात्रभर हॉस्पिटलमध्ये राहावे लागेल. एकदा तुम्ही प्रक्रियेनंतर स्वच्छ लघवी केली की, काळजी करण्यासारखे काही नाही. तुमचे व्हायटल्स नियमित अंतराने तपासले जातील. जर तुम्हाला बरे वाटत असेल, तर तुम्हाला दुसऱ्या दिवशी सकाळी हॉस्पिटलमधून डिस्चार्ज दिला जाईल.  घरी परत जाताना सोबत कोणीतरी असण्याचा सल्ला दिला जातो. "
+                en: "don't worry the procedure is simple and safe you lie flat on your stomach since kidneys are closer from behind an area on your back is chosen by help of ultrasound and marked local anesthesia is given so that you don't feel any pain a small needle is used to collect a sample tissue from lower portion of your kidney doctor will ask you to hold your breath for a while. hey don't worry that tiny bit of tissue will not affect your kidney functioning at all a small dressing will be applied biopsy site. nurse will put light pressure for few minutes to avoid any bleeding afterwards you can carefully turn and lie on your back you will have to take bed rest and stay overnight in hospital for observation once you have passed clear urine after procedure there is nothing to worry your vitals will be monitored at regular intervals if you feel all right you will be discharged from hospital next day morning . it is advisable to be accompanied back home",
+                hi: "चिंता न करें, यह प्रक्रिया सरल और सुरक्षित है। आप पेट के बल सीधे लेट जाएं क्योंकि किडनी पीछे से अधिक करीब होती हैं। आपकी पीठ पर एक क्षेत्र अल्ट्रासाउंड की मदद से चुना जाता है और चिह्नित किया जाता है। स्थानीय एनेस्थीसिया दिया जाता है ताकि आपको कोई दर्द महसूस न हो। आपकी किडनी के निचले हिस्से से ऊतक का एक नमूना लेने के लिए एक छोटी सुई का उपयोग किया जाता है। डॉक्टर आपको कुछ देर के लिए अपनी सांस रोकने के लिए कहेंगे। अरे, चिंता न करें, ऊतक का वह छोटा सा टुकड़ा आपकी किडनी की कार्यप्रणाली को बिल्कुल भी प्रभावित नहीं करेगा। बायोप्सी वाली जगह पर एक छोटी ड्रेसिंग लगाई जाएगी। नर्स कुछ मिनटों के लिए हल्का दबाव डालेगी ताकि कोई रक्तस्राव न हो। बाद में, आप सावधानी से मुड़कर अपनी पीठ के बल लेट सकते हैं। आपको बिस्तर पर आराम करना होगा और अवलोकन के लिए रात भर अस्पताल में रहना होगा। एक बार जब आप प्रक्रिया के बाद साफ मूत्र त्याग कर देते हैं, तो चिंता की कोई बात नहीं है। आपके वाइटल्स नियमित अंतराल पर मॉनिटर किए जाएंगे। यदि आप ठीक महसूस करते हैं, तो आपको अगले दिन सुबह अस्पताल से छुट्टी दे दी जाएगी। घर वापस जाते समय किसी के साथ रहने की सलाह दी जाती है।",
+                mr: "काळजी करू नका, ही प्रक्रिया सोपी आणि सुरक्षित आहे. तुम्ही पोटावर सपाट झोपा कारण किडनी मागून जवळ असतात. तुमच्या पाठीवरील एक जागा अल्ट्रासाऊंडच्या मदतीने निवडली जाते आणि चिन्हांकित केली जाते. स्थानिक भूल दिली जाते जेणेकरून तुम्हाला वेदना जाणवणार नाहीत. तुमच्या किडनीच्या खालच्या भागातून ऊतीचा नमुना घेण्यासाठी एका लहान सुईचा वापर केला जातो. डॉक्टर तुम्हाला थोडावेळ श्वास रोखून धरायला सांगतील. अहो, काळजी करू नका, तो लहान ऊतीचा तुकडा तुमच्या किडनीच्या कार्यावर अजिबात परिणाम करणार नाही. बायोप्सीच्या जागेवर एक लहान ड्रेसिंग लावली जाईल. नर्स काही मिनिटांसाठी हलका दाब देईल जेणेकरून कोणताही रक्तस्राव होणार नाही. नंतर, तुम्ही काळजीपूर्वक वळून तुमच्या पाठीवर झोपू शकता. तुम्हाला बेड रेस्ट घ्यावी लागेल आणि निरीक्षणासाठी रात्रभर हॉस्पिटलमध्ये राहावे लागेल. एकदा तुम्ही प्रक्रियेनंतर स्वच्छ लघवी केली की, काळजी करण्यासारखे काही नाही. तुमचे व्हायटल्स नियमित अंतराने तपासले जातील. जर तुम्हाला बरे वाटत असेल, तर तुम्हाला दुसऱ्या दिवशी सकाळी हॉस्पिटलमधून डिस्चार्ज दिला जाईल. घरी परत जाताना सोबत कोणीतरी असण्याचा सल्ला दिला जातो."
             },
             videoPlayer3: {
-                en: "You must follow these important post-biopsy instructions at home Avoid lifting heavy weight for next one week You can take bath normally and do light activity but avoid exertion for next two weeks You should be aware of some warning signs as well in case you find blood in your urine or you are not able to pass urine You feel lightheaded and weak If you feel a lot of pain at biopsy site please see your doctor at the earliest Your doctor must have told you some potential risks of kidney biopsy There can be minor bleeding from blood vessels within or around kidney Rarely there can be major bleeding complications.  Development of a blockage in the kidney Development of abnormal connection between blood vessels called arteriovenous fistula.  In some cases there can be development of collection of blood around kidney called hematoma.  In rare circumstances if bleeding can't be controlled then open surgery may be required to remove the affected kidney.  Remember this video is a general guide for your understanding.  Discuss your case in detail with your doctor as every patient is different Thanks for watching this video on kidney biopsy. ",
-                hi: "आपको घर पर बायोप्सी के बाद इन महत्वपूर्ण निर्देशों का पालन करना चाहिए। अगले एक सप्ताह तक भारी वजन उठाने से बचें। आप सामान्य रूप से स्नान कर सकते हैं और हल्की गतिविधि कर सकते हैं लेकिन अगले दो सप्ताह तक परिश्रम से बचें। आपको कुछ चेतावनी संकेतों के बारे में भी पता होना चाहिए। यदि आपको अपने मूत्र में खून दिखाई दे या आप मूत्र त्याग नहीं कर पा रहे हों, आपको चक्कर और कमजोरी महसूस हो, यदि आपको बायोप्सी वाली जगह पर बहुत दर्द महसूस हो, तो कृपया जल्द से जल्द अपने डॉक्टर से मिलें।  आपके डॉक्टर ने आपको किडनी बायोप्सी के कुछ संभावित जोखिमों के बारे में बताया होगा। किडनी के भीतर या आसपास की रक्त वाहिकाओं से मामूली रक्तस्राव हो सकता है। कभी-कभी, बड़ी रक्तस्राव संबंधी जटिलताएँ हो सकती हैं।  किडनी में रुकावट का विकास। रक्त वाहिकाओं के बीच anormal संबंध का विकास जिसे आर्टेरियोवेनस फिस्टुला कहा जाता है।  कुछ मामलों में, किडनी के चारों ओर खून का संग्रह हो सकता है जिसे हेमाटोमा कहा जाता है।  दुर्लभ परिस्थितियों में, यदि रक्तस्राव को नियंत्रित नहीं किया जा सकता है, तो प्रभावित किडनी को हटाने के लिए ओपन सर्जरी की आवश्यकता हो सकती है।  याद रखें, यह वीडियो आपकी समझ के लिए एक सामान्य मार्गदर्शिका है।  अपने मामले पर अपने डॉक्टर से विस्तार से चर्चा करें क्योंकि हर मरीज अलग होता है। किडनी बायोप्सी पर यह वीडियो देखने के लिए धन्यवाद। ",
-                mr: "तुम्ही घरी बायोप्सीनंतरच्या या महत्त्वाच्या सूचनांचे पालन केले पाहिजे. पुढील एक आठवडा जड वजन उचलणे टाळा. तुम्ही सामान्यपणे आंघोळ करू शकता आणि हलकी कामे करू शकता परंतु पुढील दोन आठवडे श्रम करणे टाळा. तुम्हाला काही धोक्याच्या लक्षणांबद्दलही जागरूक असले पाहिजे. जर तुम्हाला तुमच्या लघवीत रक्त दिसले किंवा तुम्ही लघवी करू शकत नसाल, तुम्हाला चक्कर आणि अशक्तपणा वाटत असेल, जर तुम्हाला बायोप्सीच्या ठिकाणी खूप वेदना होत असतील, तर कृपया शक्य तितक्या लवकर तुमच्या डॉक्टरांना भेटा.  तुमच्या डॉक्टरांनी तुम्हाला किडनी बायोप्सीच्या काही संभाव्य धोक्यांबद्दल सांगितले असेल. किडनीच्या आत किंवा आसपासच्या रक्तवाहिन्यांमधून किरकोळ रक्तस्राव होऊ शकतो. क्वचितच, मोठ्या रक्तस्रावाच्या गुंतागुंत होऊ शकतात.  किडनीमध्ये अडथळा निर्माण होणे. रक्तवाहिन्यांमध्ये anormal संबंध विकसित होणे ज्याला आर्टेरिओव्हेनस फिस्टुला म्हणतात.  काही प्रकरणांमध्ये, किडनीभोवती रक्ताचा संग्रह होऊ शकतो ज्याला हेमाटोमा म्हणतात.  दुर्मिळ परिस्थितीत, जर रक्तस्राव नियंत्रित केला जाऊ शकत नसेल, तर प्रभावित किडनी काढण्यासाठी ओपन शस्त्रक्रियेची आवश्यकता असू शकते.  लक्षात ठेवा, हा व्हिडिओ तुमच्या माहितीसाठी एक सामान्य मार्गदर्शक आहे.  तुमच्या केसवर तुमच्या डॉक्टरांशी सविस्तर चर्चा करा कारण प्रत्येक रुग्ण वेगळा असतो. किडनी बायोप्सीवरील हा व्हिडिओ पाहिल्याबद्दल धन्यवाद. "
+                en: "You must follow these important post-biopsy instructions at home Avoid lifting heavy weight for next one week You can take bath normally and do light activity but avoid exertion for next two weeks You should be aware of some warning signs as well in case you find blood in your urine or you are not able to pass urine You feel lightheaded and weak If you feel a lot of pain at biopsy site please see your doctor at the earliest Your doctor must have told you some potential risks of kidney biopsy There can be minor bleeding from blood vessels within or around kidney Rarely there can be major bleeding complications. Development of a blockage in the kidney Development of abnormal connection between blood vessels called arteriovenous fistula. In some cases there can be development of collection of blood around kidney called hematoma. In rare circumstances if bleeding can't be controlled then open surgery may be required to remove the affected kidney. Remember this video is a general guide for your understanding. Discuss your case in detail with your doctor as every patient is different Thanks for watching this video on kidney biopsy.",
+                hi: "आपको घर पर बायोप्सी के बाद इन महत्वपूर्ण निर्देशों का पालन करना चाहिए। अगले एक सप्ताह तक भारी वजन उठाने से बचें। आप सामान्य रूप से स्नान कर सकते हैं और हल्की गतिविधि कर सकते हैं लेकिन अगले दो सप्ताह तक परिश्रम से बचें। आपको कुछ चेतावनी संकेतों के बारे में भी पता होना चाहिए। यदि आपको अपने मूत्र में खून दिखाई दे या आप मूत्र त्याग नहीं कर पा रहे हों, आपको चक्कर और कमजोरी महसूस हो, यदि आपको बायोप्सी वाली जगह पर बहुत दर्द महसूस हो, तो कृपया जल्द से जल्द अपने डॉक्टर से मिलें। आपके डॉक्टर ने आपको किडनी बायोप्सी के कुछ संभावित जोखिमों के बारे में बताया होगा। किडनी के भीतर या आसपास की रक्त वाहिकाओं से मामूली रक्तस्राव हो सकता है। कभी-कभी, बड़ी रक्तस्राव संबंधी जटिलताएँ हो सकती हैं। किडनी में रुकावट का विकास। रक्त वाहिकाओं के बीच anormal संबंध का विकास जिसे आर्टेरियोवेनस फिस्टुला कहा जाता है। कुछ मामलों में, किडनी के चारों ओर खून का संग्रह हो सकता है जिसे हेमाटोमा कहा जाता है। दुर्लभ परिस्थितियों में, यदि रक्तस्राव को नियंत्रित नहीं किया जा सकता है, तो प्रभावित किडनी को हटाने के लिए ओपन सर्जरी की आवश्यकता हो सकती है। याद रखें, यह वीडियो आपकी समझ के लिए एक सामान्य मार्गदर्शिका है। अपने मामले पर अपने डॉक्टर से विस्तार से चर्चा करें क्योंकि हर मरीज अलग होता है। किडनी बायोप्सी पर यह वीडियो देखने के लिए धन्यवाद।",
+                mr: "तुम्ही घरी बायोप्सीनंतरच्या या महत्त्वाच्या सूचनांचे पालन केले पाहिजे. पुढील एक आठवडा जड वजन उचलणे टाळा. तुम्ही सामान्यपणे आंघोळ करू शकता आणि हलकी कामे करू शकता परंतु पुढील दोन आठवडे श्रम करणे टाळा. तुम्हाला काही धोक्याच्या लक्षणांबद्दलही जागरूक असले पाहिजे. जर तुम्हाला तुमच्या लघवीत रक्त दिसले किंवा तुम्ही लघवी करू शकत नसाल, तुम्हाला चक्कर आणि अशक्तपणा वाटत असेल, जर तुम्हाला बायोप्सीच्या ठिकाणी खूप वेदना होत असतील, तर कृपया शक्य तितक्या लवकर तुमच्या डॉक्टरांना भेटा. तुमच्या डॉक्टरांनी तुम्हाला किडनी बायोप्सीच्या काही संभाव्य धोक्यांबद्दल सांगितले असेल. किडनीच्या आत किंवा आसपासच्या रक्तवाहिन्यांमधून किरकोळ रक्तस्राव होऊ शकतो. क्वचितच, मोठ्या रक्तस्रावाच्या गुंतागुंत होऊ शकतात. किडनीमध्ये अडथळा निर्माण होणे. रक्तवाहिन्यांमध्ये anormal संबंध विकसित होणे ज्याला आर्टेरिओव्हेनस फिस्टुला म्हणतात. काही प्रकरणांमध्ये, किडनीभोवती रक्ताचा संग्रह होऊ शकतो ज्याला हेमाटोमा म्हणतात. दुर्मिळ परिस्थितीत, जर रक्तस्राव नियंत्रित केला जाऊ शकत नसेल, तर प्रभावित किडनी काढण्यासाठी ओपन शस्त्रक्रियेची आवश्यकता असू शकते. लक्षात ठेवा, हा व्हिडिओ तुमच्या माहितीसाठी एक सामान्य मार्गदर्शक आहे. तुमच्या केसवर तुमच्या डॉक्टरांशी सविस्तर चर्चा करा कारण प्रत्येक रुग्ण वेगळा असतो. किडनी बायोप्सीवरील हा व्हिडिओ पाहिल्याबद्दल धन्यवाद."
             }
         };
+        const quizData = [
+            { id: "quizQ1", optionsId: "quizQ1Options", correctAnswer: "b" }, { id: "quizQ2", optionsId: "quizQ2Options", correctAnswer: "d" },
+            { id: "quizQ3", optionsId: "quizQ3Options", correctAnswer: "c" }, { id: "quizQ4", optionsId: "quizQ4Options", correctAnswer: "a" },
+            { id: "quizQ5", optionsId: "quizQ5Options", correctAnswer: "d" }, { id: "quizQ6", optionsId: "quizQ6Options", correctAnswer: "d" },
+            { id: "quizQ7", optionsId: "quizQ7Options", correctAnswer: "a" }, { id: "quizQ8", optionsId: "quizQ8Options", correctAnswer: "a" },
+            { id: "quizQ9", optionsId: "quizQ9Options", correctAnswer: "d" }
+        ];
 
-        // --- SCRIPT LOGIC ---
         let players = {};
         let playerIntervals = {};
         let currentLang = 'en';
+        let currentQuestionIndex = 0;
 
         const playerMap = {
             'video1Section': { playerVar: 'player1', videoIdKey: 'videoPlayer1', containerId: 'videoPlayer1', wrapperId: 'videoWrapper1', questionId: 'questionVideo1', messageId: 'videoMessage1' },
@@ -648,327 +632,189 @@
             'video3Section': { playerVar: 'player3', videoIdKey: 'videoPlayer3', containerId: 'videoPlayer3', wrapperId: 'videoWrapper3', questionId: 'questionVideo3', messageId: 'videoMessage3' }
         };
 
-        function onYouTubeIframeAPIReady() { 
-            console.log("[API] YouTube Iframe API is ready.");
-        }
+        function onYouTubeIframeAPIReady() { console.log("[API] YouTube Iframe API is ready."); }
 
         function onPlayerStateChange(event, sectionInfo) {
-            const player = event.target;
-            const playerVar = sectionInfo.playerVar;
-            const videoWrapper = document.getElementById(sectionInfo.wrapperId);
-            const questionElement = document.getElementById(sectionInfo.questionId);
-
-            if (playerIntervals[playerVar]) {
-                clearInterval(playerIntervals[playerVar]);
-                playerIntervals[playerVar] = null;
-            }
-
+            const player = event.target, playerVar = sectionInfo.playerVar, videoWrapper = document.getElementById(sectionInfo.wrapperId), questionElement = document.getElementById(sectionInfo.questionId);
+            if (playerIntervals[playerVar]) { clearInterval(playerIntervals[playerVar]); playerIntervals[playerVar] = null; }
             if (event.data === YT.PlayerState.PLAYING) {
-                console.log(`[PLAYER] Video ${playerVar} started playing.`);
-                questionElement.classList.add('hidden');
-                videoWrapper.classList.remove('hide-yt-ui');
-
+                questionElement.classList.add('hidden'); videoWrapper.classList.remove('hide-yt-ui');
                 playerIntervals[playerVar] = setInterval(() => {
-                    const currentTime = player.getCurrentTime();
-                    const duration = player.getDuration();
-                    const pauseBeforeEnd = 3;
-
+                    const currentTime = player.getCurrentTime(), duration = player.getDuration(), pauseBeforeEnd = 3;
                     if (duration > 0 && currentTime >= duration - pauseBeforeEnd) {
-                        player.pauseVideo();
-                        clearInterval(playerIntervals[playerVar]);
-                        playerIntervals[playerVar] = null;
-                        questionElement.classList.remove('hidden');
-                        videoWrapper.classList.add('hide-yt-ui');
-                        console.log(`[PLAYER] Video ${playerVar} paused near end. Question shown.`);
+                        player.pauseVideo(); clearInterval(playerIntervals[playerVar]); playerIntervals[playerVar] = null;
+                        questionElement.classList.remove('hidden'); videoWrapper.classList.add('hide-yt-ui');
                     }
                 }, 500);
-
             } else if (event.data === YT.PlayerState.ENDED) {
-                console.log(`[PLAYER] Video ${playerVar} ended.`);
-                clearInterval(playerIntervals[playerVar]);
-                questionElement.classList.remove('hidden');
-                videoWrapper.classList.add('hide-yt-ui');
-            } else if (event.data === YT.PlayerState.PAUSED) {
-                console.log(`[PLAYER] Video ${playerVar} paused.`);
-                clearInterval(playerIntervals[playerVar]);
-            }
+                clearInterval(playerIntervals[playerVar]); questionElement.classList.remove('hidden'); videoWrapper.classList.add('hide-yt-ui');
+            } else if (event.data === YT.PlayerState.PAUSED) { clearInterval(playerIntervals[playerVar]); }
         }
         
         function createAndLoadPlayer(containerDivId, videoId, playerIdVarName, sectionInfo) {
-            console.log(`[API] Creating player for div ID: ${containerDivId}, YouTube Video ID: ${videoId}`);
-            
-            if (players[playerIdVarName]) {
-                players[playerIdVarName].destroy();
-            }
-
+            if (players[playerIdVarName]) { players[playerIdVarName].destroy(); }
             players[playerIdVarName] = new YT.Player(containerDivId, {
-                videoId: videoId,
-                playerVars: {
-                    'autoplay': 0, 'controls': 1, 'rel': 0, 'modestbranding': 1,
-                    'fs': 0, 'iv_load_policy': 3, 'origin': window.location.origin
-                },
-                events: {
-                    'onReady': (event) => {
-                        console.log(`[API] Player ${playerIdVarName} ready.`);
-                        const messageElement = document.getElementById(sectionInfo.messageId);
-                        if (messageElement) {
-                            messageElement.classList.remove('hidden');
-                            messageElement.textContent = localizedContent[currentLang].watchVideoMessage;
-                        }
-                        const videoWrapper = document.getElementById(sectionInfo.wrapperId);
-                        if (videoWrapper) videoWrapper.classList.remove('hide-yt-ui');
-                    },
-                    'onStateChange': (event) => onPlayerStateChange(event, sectionInfo),
-                    'onError': (event) => console.error(`[API ERROR] Player ${playerIdVarName} error:`, event.data)
-                }
+                videoId: videoId, playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'modestbranding': 1, 'fs': 0, 'iv_load_policy': 3, 'origin': window.location.origin },
+                events: { 'onReady': (e) => {
+                        const msgEl = document.getElementById(sectionInfo.messageId); if(msgEl){ msgEl.classList.remove('hidden'); msgEl.textContent = localizedContent[currentLang].watchVideoMessage; }
+                        const wrapper = document.getElementById(sectionInfo.wrapperId); if(wrapper) wrapper.classList.remove('hide-yt-ui');
+                    }, 'onStateChange': (e) => onPlayerStateChange(e, sectionInfo), 'onError': (e) => console.error(`[API ERROR] Player ${playerIdVarName} error:`, e.data) }
             });
         }
         
         document.addEventListener('DOMContentLoaded', () => {
-            
             function updateContent(lang) {
-                currentLang = lang;
+                currentLang = lang; document.documentElement.lang = lang; 
                 const content = localizedContent[lang];
-                document.documentElement.lang = lang; 
-
-                const safeUpdateText = (elementId, textContentKey) => {
-                    const element = document.getElementById(elementId);
-                    if (element && content[textContentKey] !== undefined) {
-                        element.textContent = content[textContentKey];
+                // A more robust way to update all text elements by ID
+                for (const key in content) {
+                    if (typeof content[key] === 'string') {
+                        const el = document.getElementById(key);
+                        if (el) {
+                            if (el.tagName === 'DIV' && el.id.includes('P3')) {
+                                el.innerHTML = content[key];
+                            } else {
+                                el.textContent = content[key];
+                            }
+                        }
                     }
-                };
-
-                const safeUpdateHTML = (elementId, htmlContentKey) => {
-                    const element = document.getElementById(elementId);
-                    if (element && content[htmlContentKey] !== undefined) {
-                        element.innerHTML = content[htmlContentKey];
-                    }
-                };
-                
-                document.title = content.pageTitle || "Consent Form";
-
-                safeUpdateText('selectLanguageLabel', 'selectLanguageLabel');
-                safeUpdateText('departmentName', 'departmentName');
-                safeUpdateText('hospitalName', 'hospitalName');
-                safeUpdateText('consentProcessTitle', 'consentProcessTitle');
-                safeUpdateText('disclaimerP1', 'disclaimerP1');
-                safeUpdateText('disclaimerP2', 'disclaimerP2');
-                safeUpdateText('startProcessButton', 'startButton');
-                safeUpdateText('video1TextSectionTitle', 'video1TextSectionTitle');
-                safeUpdateText('video1TextSectionP1', 'video1TextSectionP1');
-                safeUpdateText('video1TextSectionP2', 'video1TextSectionP2');
-                safeUpdateHTML('video1TextSectionP3', 'video1TextSectionP3');
-                safeUpdateText('questionText1Q', 'questionText1Q');
-                safeUpdateText('btn1Proceed', 'proceedButton');
-                safeUpdateText('btn1Review', 'reviewButton');
-                safeUpdateText('video1Title', 'video1Title');
-                safeUpdateText('video1Intro', 'video1Intro');
-                safeUpdateText('videoMessage1', 'watchVideoMessage');
-                safeUpdateText('questionVideo1Q', 'questionVideo1Q');
-                safeUpdateText('btn1VideoProceed', 'proceedButton');
-                safeUpdateText('btn1WatchAgain', 'watchAgainButton');
-                safeUpdateText('video2TextSectionTitle', 'video2TextSectionTitle');
-                safeUpdateText('video2TextSectionP1', 'video2TextSectionP1');
-                safeUpdateText('video2TextSectionP2', 'video2TextSectionP2');
-                safeUpdateHTML('video2TextSectionP3', 'video2TextSectionP3');
-                safeUpdateText('questionText2Q', 'questionText2Q');
-                safeUpdateText('btn2Proceed', 'proceedButton');
-                safeUpdateText('btn2Review', 'reviewButton');
-                safeUpdateText('video2Title', 'video2Title');
-                safeUpdateText('video2Intro', 'video2Intro');
-                safeUpdateText('videoMessage2', 'watchVideoMessage');
-                safeUpdateText('questionVideo2Q', 'questionVideo2Q');
-                safeUpdateText('btn2VideoProceed', 'proceedButton');
-                safeUpdateText('btn2WatchAgain', 'watchAgainButton');
-                safeUpdateText('video3TextSectionTitle', 'video3TextSectionTitle');
-                safeUpdateText('video3TextSectionP1', 'video3TextSectionP1');
-                safeUpdateText('video3TextSectionP2', 'video3TextSectionP2');
-                safeUpdateHTML('video3TextSectionP3', 'video3TextSectionP3');
-                safeUpdateText('questionText3Q', 'questionText3Q');
-                safeUpdateText('btn3Proceed', 'proceedButton');
-                safeUpdateText('btn3Review', 'reviewButton');
-                safeUpdateText('video3Title', 'video3Title');
-                safeUpdateText('video3Intro', 'video3Intro');
-                safeUpdateText('videoMessage3', 'watchVideoMessage');
-                safeUpdateText('questionVideo3Q', 'questionVideo3Q');
-                safeUpdateText('btn3VideoProceed', 'proceedButton');
-                safeUpdateText('btn3WatchAgain', 'watchAgainButton');
-                safeUpdateText('finalConsentStatementTitle', 'finalConsentStatementTitle');
-                safeUpdateText('finalConsentP1', 'finalConsentP1');
-                safeUpdateText('finalConsentP2', 'finalConsentP2');
-                safeUpdateText('finalConsentItem1', 'finalConsentItem1');
-                safeUpdateText('finalConsentItem2', 'finalConsentItem2');
-                safeUpdateText('finalConsentItem3', 'finalConsentItem3');
-                safeUpdateText('finalConsentItem4', 'finalConsentItem4');
-                safeUpdateText('finalConsentItem5', 'finalConsentItem5');
-                safeUpdateText('finalConsentItem6', 'finalConsentItem6');
-                safeUpdateText('finalConsentItem7', 'finalConsentItem7');
-                safeUpdateText('finalConsentItem8', 'finalConsentItem8');
-                safeUpdateText('finalConsentItem9', 'finalConsentItem9');
-                safeUpdateText('finalConsentItem10', 'finalConsentItem10');
-                safeUpdateText('finalConsentItem11', 'finalConsentItem11');
-                safeUpdateText('finalConsentItem12', 'finalConsentItem12');
-                safeUpdateText('finalConsentItem13', 'finalConsentItem13');
-                safeUpdateText('finalConsentItem14', 'finalConsentItem14');
-                safeUpdateText('yourDetailsHeading', 'yourDetailsHeading');
-                safeUpdateText('nameLabel', 'nameLabel'); 
-                safeUpdateText('ageLabel', 'ageLabel'); 
-                safeUpdateText('hospitalIdLabel', 'hospitalIdLabel'); 
-                safeUpdateText('downloadTranscriptBtn', 'downloadTranscriptButton');
-                safeUpdateText('consentCheckboxText', 'consentCheckboxText');
-                safeUpdateText('submitConsentButton', 'consentBiopsyButton');
-                safeUpdateText('thankYouMessage', 'thankYouMessage');
-                safeUpdateText('noteStrong', 'noteStrong');
-                safeUpdateText('noteText', 'noteText');
+                }
+                document.title = content.pageTitle;
+                // Update buttons since their IDs don't match keys perfectly
+                document.getElementById('startProcessButton').textContent = content.startButton;
+                document.querySelectorAll('.yes-btn').forEach(btn => btn.textContent = content.proceedButton);
+                document.querySelectorAll('.no-btn[data-action="rewatch-text"]').forEach(btn => btn.textContent = content.reviewButton);
+                document.querySelectorAll('.no-btn[data-action="rewatch-video"]').forEach(btn => btn.textContent = content.watchAgainButton);
+                document.getElementById('downloadTranscriptBtn').textContent = content.downloadTranscriptButton;
+                document.getElementById('submitConsentButton').textContent = content.consentBiopsyButton;
+                document.getElementById('startQuizBtn').textContent = content.startQuizButton;
+                document.getElementById('skipQuizBtn').textContent = content.skipQuizButton;
+                document.getElementById('submitAnswerBtn').textContent = content.submitAnswerButton;
+                document.getElementById('nextQuestionBtn').textContent = content.nextQuestionButton;
             }
 
             function showSection(sectionId) {
-                document.querySelectorAll('.container > .section-box').forEach(section => {
-                    section.classList.add('hidden');
-                });
+                document.querySelectorAll('.container > .section-box').forEach(s => s.classList.add('hidden'));
                 const sectionToShow = document.getElementById(sectionId);
                 if (sectionToShow) {
-                    sectionToShow.classList.remove('hidden');
-                    window.scrollTo({ top: sectionToShow.offsetTop - 20, behavior: 'smooth' });
-                } else {
-                    console.error(`[ERROR] Section with ID ${sectionId} not found.`);
-                    return;
-                }
-
-                if (sectionId.startsWith('video') && sectionId !== 'finalConsentSection') {
-                    const info = playerMap[sectionId];
-                    if (info) {
-                        createAndLoadPlayer(info.containerId, videoIds[info.videoIdKey], info.playerVar, info); 
-                    }
+                    sectionToShow.classList.remove('hidden'); window.scrollTo({ top: sectionToShow.offsetTop - 20, behavior: 'smooth' });
+                    if (playerMap[sectionId]) { createAndLoadPlayer(playerMap[sectionId].containerId, videoIds[playerMap[sectionId].videoIdKey], playerMap[sectionId].playerVar, playerMap[sectionId]); }
                 }
             }
-
-            document.getElementById('startProcessButton').addEventListener('click', () => {
-                showSection('textSection1');
-            });
-
-            document.querySelectorAll('.yes-btn').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const nextSectionId = event.target.dataset.target;
-                    showSection(nextSectionId);
-                });
-            });
             
-            document.querySelectorAll('.no-btn').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const action = event.target.dataset.action;
-                    alert(localizedContent[currentLang].reviewButtonAlert); 
+            function displayQuizQuestion(index) {
+                const qData = quizData[index];
+                const qText = localizedContent[currentLang][qData.id];
+                const qOptions = localizedContent[currentLang][qData.optionsId];
+                document.getElementById('quizQuestionText').textContent = qText;
+                const optionsContainer = document.getElementById('quizOptions');
+                optionsContainer.innerHTML = '';
+                const ul = document.createElement('ul');
+                Object.keys(qOptions).forEach(key => {
+                    const li = document.createElement('li');
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio'; radio.name = 'quizOption'; radio.value = key;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(` ${key.toUpperCase()}. ${qOptions[key]}`));
+                    li.appendChild(label);
+                    ul.appendChild(li);
+                });
+                optionsContainer.appendChild(ul);
+                document.getElementById('quizFeedback').classList.add('hidden');
+                document.getElementById('submitAnswerBtn').classList.remove('hidden');
+                document.getElementById('nextQuestionBtn').classList.add('hidden');
+            }
 
-                    if (action === 'rewatch-text') {
-                        const targetSectionId = event.target.dataset.target;
-                        const targetEl = document.getElementById(targetSectionId);
-                        if(targetEl) {
-                            window.scrollTo({ top: targetEl.offsetTop - 20, behavior: 'smooth' });
-                        }
-                    } else if (action === 'rewatch-video') {
-                        const playerIdVarName = event.target.dataset.playerId; 
-                        const sectionInfo = Object.values(playerMap).find(info => info.playerVar === playerIdVarName);
-                        
-                        if (sectionInfo && players[playerIdVarName]) {
-                            const player = players[playerIdVarName];
-                            const videoWrapper = document.getElementById(sectionInfo.wrapperId);
-                            const questionElement = document.getElementById(sectionInfo.questionId);
+            document.getElementById('startQuizBtn').addEventListener('click', () => {
+                document.getElementById('quizIntro').classList.add('hidden');
+                document.getElementById('quizContainer').classList.remove('hidden');
+                currentQuestionIndex = 0;
+                displayQuizQuestion(currentQuestionIndex);
+            });
 
-                            questionElement.classList.add('hidden');
-                            videoWrapper.classList.remove('hide-yt-ui'); 
+            document.getElementById('skipQuizBtn').addEventListener('click', () => showSection('finalConsentSection'));
+            
+            document.getElementById('submitAnswerBtn').addEventListener('click', () => {
+                const selectedOption = document.querySelector('input[name="quizOption"]:checked');
+                if (!selectedOption) { alert('Please select an answer.'); return; }
+                const feedbackEl = document.getElementById('quizFeedback');
+                const isCorrect = selectedOption.value === quizData[currentQuestionIndex].correctAnswer;
+                const correctOptionText = `${quizData[currentQuestionIndex].correctAnswer.toUpperCase()}. ${localizedContent[currentLang][quizData[currentQuestionIndex].optionsId][quizData[currentQuestionIndex].correctAnswer]}`;
+                feedbackEl.innerHTML = isCorrect ? localizedContent[currentLang].quizCorrectFeedback : `${localizedContent[currentLang].quizIncorrectFeedback} <br><strong>${correctOptionText}</strong>`;
+                feedbackEl.className = isCorrect ? 'correct' : 'incorrect';
+                feedbackEl.classList.remove('hidden');
+                document.getElementById('submitAnswerBtn').classList.add('hidden');
+                const nextBtn = document.getElementById('nextQuestionBtn');
+                if(currentQuestionIndex >= quizData.length - 1) {
+                    nextBtn.textContent = localizedContent[currentLang].finishQuizButton;
+                } else {
+                    nextBtn.textContent = localizedContent[currentLang].nextQuestionButton;
+                }
+                nextBtn.classList.remove('hidden');
+            });
 
-                            player.seekTo(0, true); 
-                            player.playVideo(); 
-                            console.log(`[PLAYER] Rewatching video ${playerIdVarName}.`);
-                        }
+            document.getElementById('nextQuestionBtn').addEventListener('click', () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizData.length) {
+                    displayQuizQuestion(currentQuestionIndex);
+                } else {
+                    showSection('finalConsentSection');
+                }
+            });
+
+            document.getElementById('startProcessButton').addEventListener('click', () => showSection('textSection1'));
+            document.querySelectorAll('.yes-btn').forEach(b => b.addEventListener('click', (e) => showSection(e.target.dataset.target)));
+            document.querySelectorAll('.no-btn').forEach(b => b.addEventListener('click', (e) => {
+                alert(localizedContent[currentLang].reviewButtonAlert); 
+                if (e.target.dataset.action === 'rewatch-video') {
+                    const pId = e.target.dataset.playerId, sInfo = Object.values(playerMap).find(info => info.playerVar === pId);
+                    if (sInfo && players[pId]) {
+                        document.getElementById(sInfo.questionId).classList.add('hidden');
+                        document.getElementById(sInfo.wrapperId).classList.remove('hide-yt-ui');
+                        players[pId].seekTo(0, true); players[pId].playVideo();
                     }
-                });
-            });
+                } else if (e.target.dataset.action === 'rewatch-text') {
+                    const targetEl = document.getElementById(e.target.dataset.target);
+                    if(targetEl) window.scrollTo({ top: targetEl.offsetTop - 20, behavior: 'smooth' });
+                }
+            }));
             
-            // ★★★ UPDATED: Multilingual Transcript Download Logic ★★★
             document.getElementById('downloadTranscriptBtn').addEventListener('click', () => {
                 let fullTranscript = "";
-                const languages = {
-                    en: "English",
-                    hi: "हिन्दी (Hindi)",
-                    mr: "मराठी (Marathi)"
-                };
-
+                const languages = { en: "English", hi: "हिन्दी (Hindi)", mr: "मराठी (Marathi)" };
                 for (const langCode in languages) {
                     if (localizedContent[langCode]) {
-                        fullTranscript += `========================================\n`;
-                        fullTranscript += `LANGUAGE: ${languages[langCode]}\n`;
-                        fullTranscript += `========================================\n\n`;
-                        
-                        const video1Title = localizedContent[langCode].video1Title || "Video 1";
-                        const video2Title = localizedContent[langCode].video2Title || "Video 2";
-                        const video3Title = localizedContent[langCode].video3Title || "Video 3";
-
-                        fullTranscript += `--- ${video1Title} ---\n`;
-                        fullTranscript += (videoTranscripts.videoPlayer1[langCode] || "Transcript not available.") + "\n\n";
-
-                        fullTranscript += `--- ${video2Title} ---\n`;
-                        fullTranscript += (videoTranscripts.videoPlayer2[langCode] || "Transcript not available.") + "\n\n";
-
-                        fullTranscript += `--- ${video3Title} ---\n`;
-                        fullTranscript += (videoTranscripts.videoPlayer3[langCode] || "Transcript not available.") + "\n\n\n";
+                        fullTranscript += `========================================\nLANGUAGE: ${languages[langCode]}\n========================================\n\n`;
+                        ['videoPlayer1', 'videoPlayer2', 'videoPlayer3'].forEach((videoIdKey, index) => {
+                            const videoTitle = localizedContent[langCode][`video${index + 1}Title`] || `Video ${index + 1}`;
+                            fullTranscript += `--- ${videoTitle} ---\n`;
+                            fullTranscript += (videoTranscripts[videoIdKey][langCode] || "Transcript not available.") + "\n\n";
+                        });
+                        fullTranscript += "\n";
                     }
                 }
-
                 const blob = new Blob([fullTranscript], { type: 'text/plain;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
-                a.href = url;
-                a.download = `Kidney_Biopsy_Consent_Transcripts_Multilingual.txt`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
+                a.href = url; a.download = `Kidney_Biopsy_Consent_Transcripts_Multilingual.txt`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             });
 
-            const patientNameInput = document.getElementById('patientName');
-            const patientAgeInput = document.getElementById('patientAge');
-            const hospitalIdInput = document.getElementById('hospitalId');
-            const consentCheckbox = document.getElementById('consentCheckbox');
-            const submitConsentButton = document.getElementById('submitConsentButton');
-            
+            const patientNameInput = document.getElementById('patientName'), patientAgeInput = document.getElementById('patientAge'), hospitalIdInput = document.getElementById('hospitalId'), consentCheckbox = document.getElementById('consentCheckbox'), submitConsentButton = document.getElementById('submitConsentButton');
             function checkFinalConsentConditions() {
-                const isNameFilled = patientNameInput.value.trim() !== '';
-                const isAgeFilled = patientAgeInput.value.trim() !== '';
-                const isHospitalIdFilled = hospitalIdInput.value.trim() !== '';
-                const isCheckboxChecked = consentCheckbox.checked;
-                submitConsentButton.disabled = !(isNameFilled && isAgeFilled && isHospitalIdFilled && isCheckboxChecked);
+                submitConsentButton.disabled = !(patientNameInput.value.trim() !== '' && patientAgeInput.value.trim() !== '' && hospitalIdInput.value.trim() !== '' && consentCheckbox.checked);
             }
-
-            [patientNameInput, patientAgeInput, hospitalIdInput, consentCheckbox].forEach(el => {
-                el.addEventListener('input', checkFinalConsentConditions);
-                el.addEventListener('change', checkFinalConsentConditions);
-            });
-
+            [patientNameInput, patientAgeInput, hospitalIdInput, consentCheckbox].forEach(el => { el.addEventListener('input', checkFinalConsentConditions); el.addEventListener('change', checkFinalConsentConditions); });
             submitConsentButton.addEventListener('click', () => {
-                if (submitConsentButton.disabled) {
-                    alert(localizedContent[currentLang].fillAllFieldsAlert);
-                    return;
-                }
-                const consentData = {
-                    procedure: localizedContent[currentLang].consentProcessTitle,
-                    consentGiven: true,
-                    timestamp: new Date().toISOString(),
-                    patientName: patientNameInput.value.trim(),
-                    patientAge: patientAgeInput.value.trim(),
-                    hospitalId: hospitalIdInput.value.trim(),
-                    language: currentLang,
-                };
-                console.log("Consent Recorded (Client-side Demo):", consentData);
-                
+                if(submitConsentButton.disabled){ alert(localizedContent[currentLang].fillAllFieldsAlert); return; }
+                console.log("Consent Recorded (Client-side Demo):", { procedure: localizedContent[currentLang].consentProcessTitle, consentGiven: true, timestamp: new Date().toISOString(), patientName: patientNameInput.value.trim(), patientAge: patientAgeInput.value.trim(), hospitalId: hospitalIdInput.value.trim(), language: currentLang });
                 document.querySelectorAll('#yourDetailsHeading, #nameLabel, #patientName, #ageLabel, #patientAge, #hospitalIdLabel, #hospitalId, #downloadTranscriptBtn, #consentCheckboxLabel, #submitConsentButton').forEach(el => el.classList.add('hidden'));
                 document.getElementById('thankYouMessage').classList.remove('hidden');
             });
-            
             document.getElementById('languageSelect').addEventListener('change', (e) => updateContent(e.target.value));
-            
             updateContent('en');
-            document.getElementById('introSection').classList.remove('hidden');
+            showSection('introSection');
         });
     </script>
 </body>
