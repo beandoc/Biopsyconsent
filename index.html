@@ -201,6 +201,9 @@
             <div class="video-wrapper">
                 <iframe id="videoPlayer1" src="" frameborder="0" allowfullscreen></iframe>
             </div>
+            <!-- Message to user while video is playing -->
+            <p id="videoMessage1" class="hidden" style="text-align: center; margin-top: 15px; font-style: italic; color: #555; font-size: 0.95em;">Please watch the video. The question will appear below after it finishes.</p>
+            
             <div class="question-section hidden" id="questionVideo1">
                 <p>After watching the video, do you have a clearer understanding of the steps involved in performing the Ultrasound-Guided Kidney Biopsy?</p>
                 <div class="button-group">
@@ -256,6 +259,9 @@
             <div class="video-wrapper">
                 <iframe id="videoPlayer2" src="" frameborder="0" allowfullscreen></iframe>
             </div>
+            <!-- Message to user while video is playing -->
+            <p id="videoMessage2" class="hidden" style="text-align: center; margin-top: 15px; font-style: italic; color: #555; font-size: 0.95em;">Please watch the video. The question will appear below after it finishes.</p>
+            
             <div class="question-section hidden" id="questionVideo2">
                 <p>After watching the video, are you clear about the potential complications, benefits, and alternative options discussed?</p>
                 <div class="button-group">
@@ -301,6 +307,9 @@
             <div class="video-wrapper">
                 <iframe id="videoPlayer3" src="" frameborder="0" allowfullscreen></iframe>
             </div>
+            <!-- Message to user while video is playing -->
+            <p id="videoMessage3" class="hidden" style="text-align: center; margin-top: 15px; font-style: italic; color: #555; font-size: 0.95em;">Please watch the video. The question will appear below after it finishes.</p>
+
             <div class="question-section hidden" id="questionVideo3">
                 <p>Are you now fully clear about the preparation steps, what happens immediately after the biopsy, and the important care instructions for your recovery?</p>
                 <div class="button-group">
@@ -371,6 +380,7 @@
         const video1Section = document.getElementById('video1Section');
         const videoPlayer1 = document.getElementById('videoPlayer1');
         const questionVideo1 = document.getElementById('questionVideo1');
+        const videoMessage1 = document.getElementById('videoMessage1'); // New element reference
 
         const textSection2 = document.getElementById('textSection2');
         const questionText2 = document.getElementById('questionText2');
@@ -378,6 +388,7 @@
         const video2Section = document.getElementById('video2Section');
         const videoPlayer2 = document.getElementById('videoPlayer2');
         const questionVideo2 = document.getElementById('questionVideo2');
+        const videoMessage2 = document.getElementById('videoMessage2'); // New element reference
 
         const textSection3 = document.getElementById('textSection3');
         const questionText3 = document.getElementById('questionText3');
@@ -385,6 +396,7 @@
         const video3Section = document.getElementById('video3Section');
         const videoPlayer3 = document.getElementById('videoPlayer3');
         const questionVideo3 = document.getElementById('questionVideo3');
+        const videoMessage3 = document.getElementById('videoMessage3'); // New element reference
 
         const finalConsentSection = document.getElementById('finalConsentSection');
         const consentCheckbox = document.getElementById('consentCheckbox');
@@ -393,6 +405,7 @@
 
         // Function to show a section and hide others
         function showSection(sectionId) {
+            console.log(`[DEBUG] Entering showSection: ${sectionId}`);
             document.querySelectorAll('.container > div').forEach(section => {
                 section.classList.add('hidden');
             });
@@ -402,24 +415,35 @@
             if (sectionId.startsWith('video') && sectionId !== 'finalConsentSection') {
                 const videoPlayer = document.getElementById('videoPlayer' + sectionId.replace('video', ''));
                 const questionElement = document.getElementById('questionVideo' + sectionId.replace('video', ''));
+                const videoMessageElement = document.getElementById('videoMessage' + sectionId.replace('video', ''));
 
-                if (videoPlayer && questionElement) {
-                    // Load the correct video source from YouTube embed links
+                if (videoPlayer && questionElement && videoMessageElement) {
+                    console.log(`[DEBUG] Setting videoPlayer ${videoPlayer.id} src: ${videoEmbedLinks[videoPlayer.id]}`);
                     videoPlayer.src = videoEmbedLinks[videoPlayer.id];
 
-                    // Hide question initially
+                    // Ensure the question is hidden before starting the timer
                     questionElement.classList.add('hidden'); 
+                    videoMessageElement.classList.remove('hidden'); // Show helper message
 
+                    console.log(`[DEBUG] Question for ${videoPlayer.id} hidden. Message displayed. Will reveal question in ${videoDurationsMs[videoPlayer.id] / 1000} seconds.`);
+                    
                     // Set timeout based on video duration
                     setTimeout(() => {
+                        console.log(`[DEBUG] Revealing question for ${videoPlayer.id}. Hiding message.`);
                         questionElement.classList.remove('hidden');
+                        videoMessageElement.classList.add('hidden'); // Hide helper message
                     }, videoDurationsMs[videoPlayer.id]);
+                } else {
+                    console.error(`[ERROR] Could not find videoPlayer, question, or message element for section: ${sectionId}`);
                 }
             } else if (sectionId.includes('textSection')) {
                 // For text sections, just show the question immediately
                 const questionElement = document.getElementById('question' + sectionId.replace('textSection', 'Text'));
                  if (questionElement) { // Ensure the correct question ID
+                    console.log(`[DEBUG] Revealing question for text section: ${sectionId}`);
                     questionElement.classList.remove('hidden');
+                } else {
+                    console.error(`[ERROR] Could not find question element for text section: ${sectionId}`);
                 }
             }
         }
@@ -433,6 +457,7 @@
         document.querySelectorAll('.yes-btn').forEach(button => {
             button.addEventListener('click', (event) => {
                 const currentQuestionSection = event.target.closest('.question-section');
+                console.log(`[DEBUG] 'Yes' button clicked. Hiding current question section: ${currentQuestionSection.id}`);
                 currentQuestionSection.classList.add('hidden'); // Hide current question
 
                 const nextSectionId = event.target.dataset.target;
@@ -446,6 +471,7 @@
                 const action = event.target.dataset.action;
                 const targetSectionId = event.target.dataset.target;
 
+                console.log(`[DEBUG] 'No' button clicked. Action: ${action}, Target: ${targetSectionId}`);
                 alert("Please re-read the information or re-watch the video carefully to ensure understanding.");
 
                 if (action === 'rewatch-text') {
@@ -453,23 +479,29 @@
                     document.getElementById(targetSectionId).classList.remove('hidden');
                     // Ensure the question for the text section is visible
                     document.getElementById('question' + targetSectionId.replace('textSection', 'Text')).classList.remove('hidden');
+                    console.log(`[DEBUG] Rewatching text section: ${targetSectionId}`);
 
                 } else if (action === 'rewatch-video') {
                     const videoPlayerId = event.target.dataset.player;
                     const videoPlayer = document.getElementById(videoPlayerId);
                     const currentVideoSection = document.getElementById(targetSectionId);
                     const currentQuestionSection = event.target.closest('.question-section');
+                    const videoMessageElement = document.getElementById('videoMessage' + targetSectionId.replace('video', ''));
 
                     // Hide current question
                     currentQuestionSection.classList.add('hidden');
-
+                    
                     // Reload the iframe to restart the video using the YouTube embed URL
+                    console.log(`[DEBUG] Rewatching video: ${videoPlayerId}. Reloading src.`);
                     videoPlayer.src = videoEmbedLinks[videoPlayerId]; // Reloads the iframe, restarting video
                     currentVideoSection.classList.remove('hidden'); // Ensure video section is visible
+                    videoMessageElement.classList.remove('hidden'); // Show helper message again
 
                     // Re-enable the question after the appropriate duration
                     setTimeout(() => {
+                        console.log(`[DEBUG] Revealing question for rewatched video: ${videoPlayerId}.`);
                         currentQuestionSection.classList.remove('hidden');
+                        videoMessageElement.classList.add('hidden'); // Hide helper message
                     }, videoDurationsMs[videoPlayerId]);
                 }
             });
@@ -478,28 +510,16 @@
         // Enable submit button only when checkbox is checked
         consentCheckbox.addEventListener('change', () => {
             submitConsentButton.disabled = !consentCheckbox.checked;
+            console.log(`[DEBUG] Consent checkbox changed. Submit button disabled: ${submitConsentButton.disabled}`);
         });
 
         // Final Consent Submission
         submitConsentButton.addEventListener('click', () => {
             if (consentCheckbox.checked) {
-                // In a real application, you would send this data securely to a backend server.
-                // This would typically involve an AJAX request (fetch API or XMLHttpRequest)
-                // to a server endpoint that logs the consent.
                 const consentData = {
                     procedure: "Ultrasound-Guided Kidney Biopsy",
                     consentGiven: true,
                     timestamp: new Date().toISOString(),
-                    // In a real system, you'd add:
-                    // patientId: "Obtain from secure login or patient management system",
-                    // answers: {
-                    //     text1Understood: true,
-                    //     video1Understood: true,
-                    //     text2Understood: true,
-                    //     video2Understood: true,
-                    //     text3Understood: true,
-                    //     video3Understood: true
-                    // }
                 };
                 console.log("Consent Recorded (Client-side Demo):", consentData); // For demonstration purposes
 
@@ -508,6 +528,7 @@
                 consentCheckbox.classList.add('hidden');
                 document.getElementById('consentCheckboxLabel').classList.add('hidden');
                 thankYouMessage.classList.remove('hidden');
+                console.log("[DEBUG] Final consent submitted. Displaying thank you message.");
 
                 // Optionally, disable all buttons to prevent further interaction
                 document.querySelectorAll('button').forEach(btn => btn.disabled = true);
