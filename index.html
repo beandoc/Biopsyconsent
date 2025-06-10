@@ -345,13 +345,23 @@
     </div>
 
     <script>
-        // --- REPLACE THESE WITH YOUR ACTUAL GOOGLE DRIVE EMBED LINKS ---
+        // --- YOUTUBE EMBED LINKS ---
+        // These URLs are derived from your provided shareable links.
+        // Example: https://youtu.be/c42_3CXhoSE -> https://www.youtube.com/embed/c42_3CXhoSE
         const videoEmbedLinks = {
-            videoPlayer1: "https://drive.google.com/file/d/1C0szHa8kLG9N1dQ2DzKwXuNZTybrgmeP/preview", // e.g., "https://drive.google.com/file/d/1aBcDeFgH1iJkLmNoPqRsTuVwXyZ/preview"
-            videoPlayer2: "https://drive.google.com/file/d/1d_r6GIVp0wZjtPsRGSrdQSFrCTkmcqRW/preview",
-            videoPlayer3: "https://drive.google.com/file/d/1RGE7EyubOMDc2LwquheUO07hlb1hfk8c/preview"
+            videoPlayer1: "https://www.youtube.com/embed/c42_3CXhoSE", // Video 1: 49 seconds
+            videoPlayer2: "https://www.youtube.com/embed/XguK849GQuk", // Video 2: 2 min 29 secs
+            videoPlayer3: "https://www.youtube.com/embed/bpA3PeIjQ2Q"   // Video 3: 1 min 20 secs
         };
         // --- END OF VIDEO LINK CONFIGURATION ---
+
+        // Configured durations for showing the question after each video, in milliseconds.
+        // Added a small buffer (e.g., 3 seconds) beyond the actual video length to allow for full viewing.
+        const videoDurationsMs = {
+            videoPlayer1: (49 + 3) * 1000, // 52 seconds
+            videoPlayer2: (149 + 3) * 1000, // 2 min 29 secs = 149 seconds -> 152 seconds
+            videoPlayer3: (80 + 3) * 1000   // 1 min 20 secs = 80 seconds -> 83 seconds
+        };
 
         const startProcessButton = document.getElementById('startProcessButton');
         const introSection = document.getElementById('introSection');
@@ -394,16 +404,16 @@
                 const questionElement = document.getElementById('questionVideo' + sectionId.replace('video', ''));
 
                 if (videoPlayer && questionElement) {
-                    // Load the correct video source
+                    // Load the correct video source from YouTube embed links
                     videoPlayer.src = videoEmbedLinks[videoPlayer.id];
 
-                    // For Google Drive iframes, we can't reliably detect 'ended' events.
-                    // So, we'll display the question after a short delay, implying the user
-                    // should have watched the video. For a real system, use a video host API.
-                    questionElement.classList.add('hidden'); // Hide until ready
+                    // Hide question initially
+                    questionElement.classList.add('hidden'); 
+
+                    // Set timeout based on video duration
                     setTimeout(() => {
                         questionElement.classList.remove('hidden');
-                    }, 3000); // Wait 3 seconds after video iframe loads to show question
+                    }, videoDurationsMs[videoPlayer.id]);
                 }
             } else if (sectionId.includes('textSection')) {
                 // For text sections, just show the question immediately
@@ -453,14 +463,14 @@
                     // Hide current question
                     currentQuestionSection.classList.add('hidden');
 
-                    // Reload the iframe to restart the video
+                    // Reload the iframe to restart the video using the YouTube embed URL
                     videoPlayer.src = videoEmbedLinks[videoPlayerId]; // Reloads the iframe, restarting video
                     currentVideoSection.classList.remove('hidden'); // Ensure video section is visible
 
-                    // Re-enable the question after a delay
+                    // Re-enable the question after the appropriate duration
                     setTimeout(() => {
                         currentQuestionSection.classList.remove('hidden');
-                    }, 3000); // Match the delay for initial video load
+                    }, videoDurationsMs[videoPlayerId]);
                 }
             });
         });
